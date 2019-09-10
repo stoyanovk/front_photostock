@@ -5,6 +5,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Button from "@material-ui/core/Button";
 import img from "../../assets/img/photo-camera.svg";
 import MenuDropList from "../Common/MenuDropList";
+import HeaderSearch from "../Common/HeaderSearch";
 import useStyles from "./style";
 
 export default function ButtonAppBar() {
@@ -34,6 +35,7 @@ export default function ButtonAppBar() {
               CATEGORY
               <MenuDropList open={open} />
             </div>
+            <HeaderSearch/>
           </div>
 
           <Button color="inherit">Login</Button>
