@@ -19,8 +19,7 @@ const useStyles = makeStyles(theme => ({
 }));
 export default function Footer() {
   const { root, paper,footer } = useStyles();
-  const date = new Date();
-  console.log(date);
+
   return (
     <footer className={footer}>
       <Grid container direction="row" className={root}>

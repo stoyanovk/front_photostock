@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
-
 import Button from "@material-ui/core/Button";
 import img from "../../assets/img/photo-camera.svg";
 import MenuDropList from "../Common/MenuDropList";

@@ -7,7 +7,7 @@ const useStyles = makeStyles(theme => ({
   },
   paper: {
     position: 'absolute',
-    top: 20,
+    top: 22,
     right: 0,
     left: 0,
     padding:'10px',
