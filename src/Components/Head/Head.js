@@ -3,14 +3,13 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Button from "@material-ui/core/Button";
 import img from "../../assets/img/photo-camera.svg";
-import MenuDropList from "../Common/MenuDropList";
+import MenuDropList from "./MenuDropList";
 import HeaderSearch from "../Common/HeaderSearch";
 import useStyles from "./style";
 
 export default function ButtonAppBar() {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
-  console.log(open);
   const mouseEnter = () => {
     setOpen(open => true);
   };
@@ -19,25 +18,25 @@ export default function ButtonAppBar() {
   };
   return (
     <div>
-      <AppBar className={classes.bg} position="static">
+      <AppBar className={classes.header} position='static'>
         <Toolbar className={classes.justifyContent}>
           <div className={classes.menuItem}>
             <div className={classes.logoWrap}>
-              <img className={classes.logo} src={img} alt="logo" />
+              <img className={classes.logo} src={img} alt='logo' />
             </div>
             <div
               className={classes.menuButton}
-                onMouseLeave={mouseLeave}
+              onMouseLeave={mouseLeave}
               onMouseEnter={mouseEnter}
-              body1="span"
-            >
+              body1='span'>
               CATEGORY
               <MenuDropList open={open} />
             </div>
-            <HeaderSearch/>
           </div>
-
-          <Button color="inherit">Login</Button>
+          <div className={classes.dFlex}>
+            <HeaderSearch />
+            <Button color='inherit'>Login</Button>
+          </div>
         </Toolbar>
       </AppBar>
     </div>

@@ -1,0 +1,7 @@
+{
+    "editor.formatOnType": true,
+    "editor.formatOnPaste": true,
+    "eslint.autoFixOnSave": true,
+    "prettier.jsxBracketSameLine": true,
+    "prettier.jsxSingleQuote": true
+}

@@ -7,7 +7,8 @@ const useStyles = makeStyles(theme => ({
   },
   paper: {
     position: 'absolute',
-    top: 22,
+    zIndex:5,
+    top: 20,
     right: 0,
     left: 0,
     padding:'10px',
@@ -15,13 +16,6 @@ const useStyles = makeStyles(theme => ({
     maxHeight:'300px',
     columnCount:3
   },
-  fake: {
-    backgroundColor: grey[200],
-    height: theme.spacing(1),
-    margin: theme.spacing(2),
-    '&:nth-child(2n)': {
-      marginRight: theme.spacing(3),
-    },
-  },
+
 }));
 export {useStyles}
