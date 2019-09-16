@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { style } from "@material-ui/system";
 
 const FirstSectionWrapper = styled.div`
   height: 50vh;
@@ -7,7 +8,7 @@ const FirstSectionWrapper = styled.div`
   justify-content: center;
   position: relative;
   padding: 30px;
-  z-index:1;
+  z-index: 1;
   img {
     position: absolute;
     top: 0;
@@ -15,13 +16,21 @@ const FirstSectionWrapper = styled.div`
     height: 100%;
     width: 100%;
     object-fit: cover;
-    z-index:-1;
+    z-index: -1;
   }
 `;
 const MainTitle = styled.h1`
-    color:#fff;
-    margin-bottom:100px;
-    display:block;
-    font-size:65px;
-`
-export { FirstSectionWrapper,MainTitle };
+  color: #fff;
+  margin-bottom: 100px;
+  display: block;
+  font-size: 65px;
+`;
+const SecondSectionWrapper = styled.div`
+  padding: 50px 30px;
+`;
+const Title = styled.h2`
+  font-size: 40px;
+  color: #fff;
+  margin-bottom:30px;
+`;
+export { FirstSectionWrapper, MainTitle, Title, SecondSectionWrapper};

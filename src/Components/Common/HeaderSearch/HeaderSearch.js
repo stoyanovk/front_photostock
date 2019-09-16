@@ -1,20 +1,20 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { AutosuggestWrapper } from "./style";
 import { tagsApi } from "../../../Api";
-import { format } from "url";
+
 
 const HeaderSearch = () => {
-  const { getTags } = tagsApi;
+  const { getFilteredTags } = tagsApi;
   const [opt, setOpt] = useState([]);
   const [value, setValue] = useState("");
-  useEffect(() => {}, []);
+
   let timeout = null;
   const handleInputChange = value => {
     if (value.lenght > 0) {
       setValue(value);
       clearTimeout(timeout);
       timeout = setTimeout(() => {
-        getTags(value).then(res => {
+        getFilteredTags(value).then(res => {
           setOpt(res);
         });
       }, 1000);

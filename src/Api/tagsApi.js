@@ -4,8 +4,8 @@ class PhotosApi {
   getTags = () => {
     return apiCall({ url, method: "get" });
   };
-  getFilteredTags = (data) => {
-    return apiCall({ url, method: "get", data });
+  getFilteredTags = (tagValue) => {
+    return apiCall({ url, method: "get", data: { tags: tagValue} });
   };
 }
 export default PhotosApi;

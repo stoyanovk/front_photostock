@@ -1,21 +1,26 @@
-import { grey } from '@material-ui/core/colors';
-import { makeStyles } from '@material-ui/core/styles';
+import styled from "styled-components";
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    position: 'relative',
-  },
-  paper: {
-    position: 'absolute',
-    zIndex:5,
-    top: 20,
-    right: 0,
-    left: 0,
-    padding:'10px',
-    minWidth:'400px',
-    maxHeight:'300px',
-    columnCount:3
-  },
 
-}));
-export {useStyles}
+const MenuDropListWrapper = styled.div`
+  position: relative;
+  ul {
+    position: absolute;
+    z-index: 5;
+    top: 8px;
+    right: 0;
+    left: 0;
+    background: #fff;
+    list-style: none;
+    padding: 10px;
+    min-width: 400px;
+    max-height: 300px;
+    column-count: ${({ count }) => count};
+    border-radius: 6px;
+  }
+  li {
+    font-size: 16px;
+    color: #2d2d2d;
+    cursor: pointer;
+  }
+`;
+export { MenuDropListWrapper };
