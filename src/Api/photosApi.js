@@ -18,5 +18,3 @@ class PhotosApi {
     }
 }
 export default PhotosApi
-const a = new PhotosApi();
-a.getPhotos().then(res=>console.log(res))

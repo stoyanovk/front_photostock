@@ -33,4 +33,28 @@ const Title = styled.h2`
   color: #fff;
   margin-bottom:30px;
 `;
-export { FirstSectionWrapper, MainTitle, Title, SecondSectionWrapper};
+const SliderItemStyle = styled.div`
+position:relative;
+max-height:270px;
+&:after{
+  content:${({ desc }) => `'${desc}'`};
+  color:#fff;
+  opacity:0;
+  transition:all 0.3s ease-in-out;
+  background-color: rgba(0,0,0, 0.6);
+  position:absolute;
+  left:0;
+  top:0;
+  width:100%;
+  height:100%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+&:hover{
+  &:after{
+    opacity: 1;
+  }
+}
+`
+export { FirstSectionWrapper, MainTitle, Title, SecondSectionWrapper, SliderItemStyle};
