@@ -1,15 +1,17 @@
 import React from "react";
 import PageWrapper from "../../Components/PageWrapper";
 import FirstSection from "./FirstSection";
-import SecondSection from './SecondSection'
+import MostPopularImagesSection from './MostPopularImagesSection'
 import Container from "@material-ui/core/Container";
+import CategorySection from './CategorySection'
 
 export default function Home() {
   return (
     <PageWrapper>
       <Container maxWidth='xl'>
         <FirstSection />
-        <SecondSection/>
+        <MostPopularImagesSection />
+        <CategorySection/>
       </Container>
     </PageWrapper>
   );

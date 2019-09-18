@@ -4,7 +4,12 @@ import VariableWidthSlider from "../../Components/VariableWidthSlider";
 import { photosApi } from "../../Api";
 import ImgBox from '../../Components/Common/ImgBox';
 import SliderItem from './SliderItem';
-export default function SecondSection() {
+
+function setWidth(width,height) {
+  return width>=height?'360px':'180px'
+}
+
+export default function MostPopularImagesSection() {
   const [popularImages, setPopularImage] = useState([]);
   useEffect(() => {
     // photosApi.getPhotos().then(({ data: { data } }) => {
@@ -23,11 +28,12 @@ export default function SecondSection() {
   //     <ImgBox key={_id} decs={title} id={_id} url={`https://photostock-back.herokuapp.com/upload${imageUrl}`}/>
   //   );
   // });
-  console.log(popularImages);
-  const sliderItem = popularImages.map(image => {
 
+  const sliderItem = popularImages.map(image => {
+    const width = setWidth(image.width, image.height);
+    console.log(width);
     return (
-      <SliderItem key={image.id} image={image} />
+      <SliderItem width={width} key={image.id} image={image} />
     );
   });
   return (

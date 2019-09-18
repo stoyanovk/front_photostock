@@ -31,30 +31,38 @@ const SecondSectionWrapper = styled.div`
 const Title = styled.h2`
   font-size: 40px;
   color: #fff;
-  margin-bottom:30px;
+  margin-bottom: 30px;
 `;
 const SliderItemStyle = styled.div`
-position:relative;
-max-height:270px;
-&:after{
-  content:${({ desc }) => `'${desc}'`};
-  color:#fff;
-  opacity:0;
-  transition:all 0.3s ease-in-out;
-  background-color: rgba(0,0,0, 0.6);
-  position:absolute;
-  left:0;
-  top:0;
-  width:100%;
-  height:100%;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-}
-&:hover{
-  &:after{
-    opacity: 1;
+  position: relative;
+  width: ${({ width }) => width};
+  /* height: 220px; */
+  &:after {
+    content: ${({ desc }) => `'${desc}'`};
+    color: #fff;
+    opacity: 0;
+    transition: all 0.3s ease-in-out;
+    background-color: rgba(0, 0, 0, 0.6);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding:10px;
   }
-}
-`
-export { FirstSectionWrapper, MainTitle, Title, SecondSectionWrapper, SliderItemStyle};
+  &:hover {
+    &:after {
+      opacity: 1;
+    }
+  }
+`;
+export {
+  FirstSectionWrapper,
+  MainTitle,
+  Title,
+  SecondSectionWrapper,
+  SliderItemStyle
+};
