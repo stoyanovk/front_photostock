@@ -15,54 +15,22 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const arr = [
-  {
-    img: "./img/1.jpg",
-    title: "Image 1",
-    author: "author 1",
-    cols: 3
-  },
-  {
-    img: "./img/2.jpeg",
-    title: "Image 1",
-    author: "author 1"
-  },
-  {
-    img: "./img/3.jpg",
-    title: "Image 1",
-    author: "author 1"
-  },
-  {
-    img: "./img/4.jpg",
-    title: "Image 1",
-    author: "author 1"
-  },
-  {
-    img: "./img/5.jpg",
-    title: "Image 1",
-    author: "author 1"
-  },
-  {
-    img: "./img/6.jpg",
-    title: "Image 1",
-    author: "author 1"
-  }
-];
-export default function CategorySection() {
+
+export default function CategorySection({ category }) {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
-      <GridList cellHeight={260} className={classes.gridList} cols={6}>
-              {arr.map(({ img, title }) => {
-            
-          return (
-              <GridListTile key={img} cols={2}>
-              <img src={img} alt={title} />
-            </GridListTile>
-          );
-        })}
-      </GridList>
-    </div>
+    <div></div>
+    // <div className={classes.root}>
+    //   <GridList cellHeight={260} className={classes.gridList} cols={6}>
+    //     {category.map(({ img, title }) => {
+    //       return (
+    //         <GridListTile key={img} cols={2}>
+    //           <img src={img} alt={title} />
+    //         </GridListTile>
+    //       );
+    //     })}
+    //   </GridList>
+    // </div>
   );
 }

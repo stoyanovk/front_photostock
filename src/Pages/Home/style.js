@@ -35,8 +35,8 @@ const Title = styled.h2`
 `;
 const SliderItemStyle = styled.div`
   position: relative;
-  width: ${({ width }) => width};
-  /* height: 220px; */
+  width: 100%;
+  max-width: 700px;
   &:after {
     content: ${({ desc }) => `'${desc}'`};
     color: #fff;
@@ -51,7 +51,7 @@ const SliderItemStyle = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    padding:10px;
+    padding: 10px;
   }
   &:hover {
     &:after {

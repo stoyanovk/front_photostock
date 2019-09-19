@@ -8,6 +8,7 @@ const VariableWidthSlider = ({ children }) => {
     className: "slider variable-width",
     dots: true,
     infinite: true,
+    adaptiveHeight: true,
     centerMode: true,
     slidesToShow: 1,
     slidesToScroll: 1,

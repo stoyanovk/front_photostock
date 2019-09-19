@@ -1,16 +1,12 @@
 import React from "react";
 import ImgBox from "../../Components/Common/ImgBox";
 import { SliderItemStyle } from "./style";
-export default function SliderItem({
-  image: {
-    alt_description,
-    urls: { raw }
-  },
-  width
-}) {
+
+export default function SliderItem({ image: { image_url, description, name } }) {
+
   return (
-    <SliderItemStyle width={width} desc={alt_description}>
-      <ImgBox decs={alt_description} url={raw} />;
+    <SliderItemStyle desc={description}>
+      <ImgBox decs={name} url={image_url} />;
     </SliderItemStyle>
   );
 }
