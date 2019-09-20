@@ -173,6 +173,5 @@ const tags = [
     ]
   }
 ];
-console.log(generate());
 
 export { tags, images, categories}

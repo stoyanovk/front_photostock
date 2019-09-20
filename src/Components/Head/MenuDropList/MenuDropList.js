@@ -12,8 +12,8 @@ function MenuDropList({ open, categories }) {
     }
     return 1;
   };
-    const count = columnCount(categories);
-    console.log(count)
+  const count = columnCount(categories);
+
   return (
     <MenuDropListWrapper count={count}>
       {open ? (
