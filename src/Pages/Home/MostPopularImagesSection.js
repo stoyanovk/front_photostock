@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Title, SecondSectionWrapper } from "./style";
+import { Title, SectionWrapper } from "./style";
 import VariableWidthSlider from "../../Components/VariableWidthSlider";
 // import { photosApi } from "../../Api";
 import { images } from "../../Api/dataTest";
@@ -28,9 +28,9 @@ export default function MostPopularImagesSection() {
     );
   });
   return (
-    <SecondSectionWrapper>
+    <SectionWrapper>
       <Title>Newest Images</Title>
       <VariableWidthSlider children={sliderItem} />
-    </SecondSectionWrapper>
+    </SectionWrapper>
   );
 }

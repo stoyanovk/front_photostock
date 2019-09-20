@@ -25,13 +25,14 @@ const MainTitle = styled.h1`
   display: block;
   font-size: 65px;
 `;
-const SecondSectionWrapper = styled.div`
+const SectionWrapper = styled.div`
   padding: 50px 30px;
 `;
 const Title = styled.h2`
   font-size: 40px;
   color: #fff;
   margin-bottom: 30px;
+  margin-top:0;
 `;
 const SliderItemStyle = styled.div`
   position: relative;
@@ -63,6 +64,6 @@ export {
   FirstSectionWrapper,
   MainTitle,
   Title,
-  SecondSectionWrapper,
+  SectionWrapper,
   SliderItemStyle
 };

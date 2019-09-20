@@ -8,18 +8,5 @@ const withConsumer = BaseComponent => {
 };
 export default withConsumer;
 
-// function mapStateToProps(state) {
-//   const { todos } = state;
-//   return { todoList: todos };
-// }
-// const stateStorage = {
-//     todos: [1, 2, 3, 4]
-// }
-    
-// const connect = func => component => (Obje.assign());
 
-// const TodoList = {};
 
-// connect(mapStateToProps)(TodoList);
-
-// console.log(connect(mapStateToProps)(TodoList));
