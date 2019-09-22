@@ -6,6 +6,7 @@ import img from "../../assets/img/photo-camera.svg";
 import MenuDropList from "./MenuDropList";
 import HeaderSearch from "../Common/HeaderSearch";
 import useStyles from "./style";
+import {Link} from 'react-router-dom'
 
 export default function ButtonAppBar() {
   const classes = useStyles();
@@ -35,7 +36,12 @@ export default function ButtonAppBar() {
           </div>
           <div className={classes.dFlex}>
             <HeaderSearch />
-            <Button color='inherit'>Login</Button>
+            <Link to='/sign-in'>
+              <Button color='inherit'>Sign In</Button>
+            </Link>
+            <Link to='/sign-up'>
+              <Button color='inherit'>Sign Up</Button>
+            </Link>
           </div>
         </Toolbar>
       </AppBar>

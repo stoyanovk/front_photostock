@@ -16,7 +16,7 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1
   },
   menuButton: {
-    padding: 20,
+    padding: 23,
     cursor: "pointer"
   },
   title: {

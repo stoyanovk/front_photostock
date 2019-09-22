@@ -79,7 +79,7 @@ export default function SignUp() {
               <Grid item xs={12}>
                 <FormControlLabel className={classes.controlLabel}
                   control={
-                      <Checkbox value='allowExtraEmails' color='' />
+                      <Checkbox value='allowExtraEmails' color='primary' />
                   }
                   label='I want to receive inspiration, marketing promotions and updates via email.'
                 />
