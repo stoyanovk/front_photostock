@@ -4,15 +4,22 @@ import GridListTile from "@material-ui/core/GridListTile";
 import GridListTileBar from "@material-ui/core/GridListTileBar";
 import { Title, SectionWrapper } from "./style";
 import { withConsumer } from "../../HOC";
+import { withRouter } from "react-router-dom";
 
-function CategorySection({ value: { categories } }) {
+function CategorySection({ value: { categories }, history }) {
+  const handleClick = (id, method) => () => {
+    method(`category/${id}`);
+  };
   return (
     <SectionWrapper>
       <Title>Categories</Title>
       <GridList cellHeight={260} cols={6}>
         {categories.map(({ id, name, label }) => {
           return (
-            <GridListTile key={id} cols={2}>
+            <GridListTile
+              key={id}
+              cols={2}
+              onClick={handleClick(id, history.push)}>
               <img src={label} alt={name} />
               <GridListTileBar title={name} />
             </GridListTile>
@@ -22,4 +29,4 @@ function CategorySection({ value: { categories } }) {
     </SectionWrapper>
   );
 }
-export default withConsumer(CategorySection);
+export default withRouter(withConsumer(CategorySection));

@@ -3,10 +3,10 @@ import ImgBox from "../../Components/Common/ImgBox";
 import { SliderItemStyle } from "./style";
 
 export default function SliderItem({
-  image: { image_url, description, name }
+  image: { image_url, description, name,id }, handleClick
 }) {
   return (
-    <SliderItemStyle desc={description}>
+    <SliderItemStyle desc={description} onClick={handleClick}>
       <ImgBox decs={name} url={image_url} height={"450px"} />;
     </SliderItemStyle>
   );

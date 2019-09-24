@@ -10,16 +10,21 @@ export default () => {
     <Suspense fallback={<div>Загрузка...</div>}>
       <Switch>
         <Route exact path='/' component={Home} />
-        <Route exact path='/photo' component={PhotoPage} />
         <Route
-          exact
+          path='/photo/:id'
+          render={({
+            match: {
+              params: { id }
+            }
+          }) => <PhotoPage id={id} />}
+        />
+        <Route
           path='/category/:id'
           render={({
             match: {
               params: { id }
             }
           }) => {
-            console.log(id);
             return <CategoryLazy id={id} />;
           }}
         />

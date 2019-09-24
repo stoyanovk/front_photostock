@@ -1,14 +1,40 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PageWrapper from "../../Components/PageWrapper";
 import Container from "@material-ui/core/Container";
-import AsNavForSlider from "./AsNavForSlider";
-
-export default function PhotoPage() {
+import Grid from "@material-ui/core/Grid";
+import PhotoContainer from "./PhotoContainer";
+import PhotoPageSlider from "./PhotoPageSlider";
+import { images } from "../../Api/dataTest";
+function PhotoPage({ id }) {
+  const [imagesArr, setImagesArr] = useState([]);
+  const [image, setImage] = useState({});
+  let isMount = false;
+  useEffect(() => {
+    isMount = true;
+    setTimeout(() => {
+      if (isMount) {
+        setImagesArr(images);
+        const image = images.find((image) => image.id === id)
+        setImage(image);
+      }
+  
+    }, 800);
+    return () => isMount = false;
+  }, []);
+  console.log(imagesArr);
   return (
     <PageWrapper>
-      <Container maxWidth='lg'>
-        <AsNavForSlider />
+      <Container maxWidth='xl'>
+        <Grid container>
+          <Grid item xs={12} lg={9}>
+            <PhotoContainer image={image} />
+            <PhotoPageSlider images={imagesArr} />
+          </Grid>
+          <Grid item xs={12} lg={3}></Grid>
+        </Grid>
       </Container>
     </PageWrapper>
   );
 }
+
+export default PhotoPage;

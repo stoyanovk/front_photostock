@@ -308,7 +308,7 @@ const categories = [
 ];
 const images = [
   {
-    id: generate(),
+    id: "2121",
     image_url: "/img/1.jpg",
     name: "some interesting",
     description: "some interestingsome interesting",
@@ -323,7 +323,7 @@ const images = [
     created_at: "12.12.12"
   },
   {
-    id: generate(),
+    id: "2122",
     image_url: "/img/2.jpeg",
     name: "some interesting",
     description: "some interestingsome interesting",
@@ -338,7 +338,7 @@ const images = [
     created_at: "12.12.12"
   },
   {
-    id: generate(),
+    id: "2123",
     image_url: "/img/3.jpg",
     name: "some interesting",
     description: "some interestingsome interesting",
@@ -353,7 +353,7 @@ const images = [
     created_at: "12.12.12"
   },
   {
-    id: generate(),
+    id: "2124",
     image_url: "/img/4.jpg",
     name: "some interesting",
     description: "some interestingsome interesting",
@@ -368,7 +368,7 @@ const images = [
     created_at: "12.12.12"
   },
   {
-    id: generate(),
+    id: "2125",
     image_url: "/img/5.jpg",
     name: "some interesting",
     description: "some interestingsome interesting",
@@ -383,7 +383,7 @@ const images = [
     created_at: "12.12.12"
   },
   {
-    id: generate(),
+    id: "2126",
     image_url: "/img/6.jpg",
     name: "some interesting",
     description: "some interestingsome interesting",
