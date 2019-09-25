@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Title, SectionWrapper } from "./style";
 import VariableWidthSlider from "../../Components/VariableWidthSlider";
-// import { photosApi } from "../../Api";
-import { images } from "../../Api/dataTest";
+import { photosApi } from "../../Api";
 import SliderItem from "./SliderItem";
 import { withRouter } from "react-router-dom";
 
@@ -11,33 +10,28 @@ function MostPopularImagesSection({ history }) {
   let isMounted = false;
 
   useEffect(() => {
-    // photosApi.getPhotos().then(({ data: { data } }) => {
-    //   setPopularImage(data);
-    // });
     isMounted = true;
-    setTimeout(() => {
-      isMounted && setPopularImage(images);
-    }, 2000);
-
+    isMounted &&
+      photosApi.getPhotos().then(({ data: { data } }) => {
+        setPopularImage(data);
+      });
     return () => (isMounted = false);
-  }, [isMounted]);
-  // const sliderItem = popularImage.map(({ date, title, imageUrl, _id }) => {
-  //   return (
-  //     <ImgBox key={_id} decs={title} id={_id} url={`https://photostock-back.herokuapp.com/upload${imageUrl}`}/>
-  //   );
-  // });
+  }, []);
   const handleClick = (id, method) => () => {
     method(`/photo/${id}`);
   };
-  const sliderItem = popularImages.map(image => {
+  const sliderItem = popularImages.map(({title, imageUrl, _id, }) => {
     return (
       <SliderItem
-        key={image.id}
-        image={image}
-        handleClick={handleClick(image.id, history.push)}
+        key={_id}
+        id={_id}
+        title={title}
+        image={`https://photostock-back.herokuapp.com/storage/${imageUrl}`}
+        handleClick={handleClick(_id, history.push)}
       />
     );
   });
+
   return (
     <SectionWrapper>
       <Title>Newest Images</Title>

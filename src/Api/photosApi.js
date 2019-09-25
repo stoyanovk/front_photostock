@@ -1,5 +1,5 @@
 import {apiCall} from './common';
-const url = 'images';
+const url = 'api/images';
 class PhotosApi {
     getPhotos = ()=>{
         return apiCall({url, method:'get'})

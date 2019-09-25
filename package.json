@@ -21,13 +21,15 @@
     "react-select": "^3.0.4",
     "redux": "^4.0.4",
     "shortid": "^2.2.15",
+    "source-map-explorer": "^2.1.0",
     "styled-components": "^4.3.2"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "analyze": "source-map-explorer 'build/static/js/*.js'"
   },
   "eslintConfig": {
     "extends": "react-app"

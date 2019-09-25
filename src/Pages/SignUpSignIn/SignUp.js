@@ -1,9 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
 import { Link } from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
@@ -11,9 +9,31 @@ import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import PageWrapper from "../../Components/PageWrapper";
 import { useStyles, StyledTextField } from "./style";
+import { authApi } from "../../Api";
+
+const initialState = {
+  name: "",
+  email: "",
+  password: "",
+
+};
 
 export default function SignUp() {
   const classes = useStyles();
+  const [state, setState] = useState(initialState);
+  const handleSubmit = e => {
+    e.preventDefault();
+
+    const stringState = JSON.stringify(state);
+    console.log(stringState);
+    authApi
+      .signUp(stringState, { "Content-type": "application/json" })
+      .then(res => console.log(res));
+  };
+
+  const handleChange = ({ target: { name, value } }) => {
+    setState(prevState => ({ ...prevState, [name]: value }));
+  };
 
   return (
     <PageWrapper>
@@ -26,23 +46,27 @@ export default function SignUp() {
           <Typography className={classes.title} component='h1' variant='h5'>
             Sign up
           </Typography>
-          <form className={classes.form} noValidate>
+          <form className={classes.form} noValidate onSubmit={handleSubmit}>
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <StyledTextField
-                  autoComplete='fname'
-                  name='firstName'
+                  onChange={handleChange}
+                  value={state.name}
+                  autoComplete='Name'
+                  name='name'
                   variant='standard'
                   required
                   fullWidth
                   id='firstName'
-                  label='First Name'
+                  label='Name'
                   autoFocus
                 />
               </Grid>
 
               <Grid item xs={12}>
                 <StyledTextField
+                  onChange={handleChange}
+                  value={state.email}
                   variant='standard'
                   required
                   fullWidth
@@ -54,34 +78,17 @@ export default function SignUp() {
               </Grid>
               <Grid item xs={12}>
                 <StyledTextField
+                  onChange={handleChange}
+                  value={state.password}
                   variant='standard'
                   required
+                  // value={}
                   fullWidth
                   name='password'
                   label='Password'
                   type='password'
                   id='password'
                   autoComplete='off'
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <StyledTextField
-                  variant='standard'
-                  required
-                  fullWidth
-                  name='repeatPassword'
-                  label='Repeat password'
-                  type='password'
-                  id='repeat-password'
-                  autoComplete='off'
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <FormControlLabel className={classes.controlLabel}
-                  control={
-                      <Checkbox value='allowExtraEmails' color='primary' />
-                  }
-                  label='I want to receive inspiration, marketing promotions and updates via email.'
                 />
               </Grid>
             </Grid>

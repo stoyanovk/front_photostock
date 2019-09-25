@@ -1,8 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
+import {connect} from 'react-redux'
 import Grid from "@material-ui/core/Grid";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
@@ -10,10 +9,34 @@ import Container from "@material-ui/core/Container";
 import PageWrapper from "../../Components/PageWrapper";
 import { StyledTextField } from "../SignUpSignIn/style";
 import { useStyles } from "./style";
+import { authApi } from "../../Api";
+import { Redirect } from 'react-router-dom';
+import {login} from '../../Store/Actions'
 
-export default function SignIn() {
+const initialState = {
+  email: "",
+  password: ""
+};
+function SignIn({auth,logIn}) {
   const classes = useStyles();
+  const [state, setState] = useState(initialState);
+  console.log(auth, logIn)
+  const handleChange = ({ target: { name, value } }) => {
+    setState(prevState => ({ ...prevState, [name]: value }));
+  };
 
+  const handleSubmit = e => {
+    e.preventDefault();
+
+    const stringState = JSON.stringify(state);
+    console.log(stringState);
+    authApi
+      .signIn(stringState, { "Content-type": "application/json" })
+      .then(({ data: { data: { token } } }) => {
+        window.localStorage.setItem('token', token)
+        logIn(token)
+      });
+  };
   return (
     <PageWrapper>
       <Container component='main' maxWidth='xs'>
@@ -24,10 +47,12 @@ export default function SignIn() {
           <Typography component='h1' variant='h5'>
             Sign in
           </Typography>
-          <form className={classes.form} noValidate>
+          <form className={classes.form} noValidate onSubmit={handleSubmit}>
             <Grid item xs={12}>
               <StyledTextField
                 variant='standard'
+                value={state.email}
+                onChange={handleChange}
                 required
                 fullWidth
                 id='email'
@@ -38,6 +63,8 @@ export default function SignIn() {
             </Grid>
             <Grid item xs={12}>
               <StyledTextField
+                value={state.password}
+                onChange={handleChange}
                 variant='standard'
                 required
                 fullWidth
@@ -48,10 +75,6 @@ export default function SignIn() {
                 autoComplete='off'
               />
             </Grid>
-            <FormControlLabel
-              control={<Checkbox value='remember' color='primary' />}
-              label='Remember me'
-            />
             <Button
               type='submit'
               fullWidth
@@ -66,3 +89,8 @@ export default function SignIn() {
     </PageWrapper>
   );
 }
+const mapStateToProps = ({ auth }) => auth;
+const mapDispatchToProps = (dispatch) => {
+  return { logIn: () => dispatch(login()) }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn);

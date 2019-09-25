@@ -1,21 +1,22 @@
 import axios from "axios";
 
-function getHeaders() {
+function getHeaders(data) {
   const token = window.localStorage.getItem("token");
-
+  const ContentType = { "Content-type": "Access-Control-Allow-Origin: *"}
   return {
     Authorization: `Bearer ${token}`,
     // mode: 'no-cors',
-    "Content-type": "Access-Control-Allow-Origin: *"
+    ...ContentType,
+    ...data
   };
 }
-const HOST = "https://photostock-back.herokuapp.com/api/";
-const apiCall = async ({ url, method, data }) => {
+const HOST = "https://photostock-back.herokuapp.com/";
+const apiCall = async ({ url, method, data,headersData }) => {
   const result = await axios({
     method,
     url: `${HOST}${url}`,
     data,
-    headers: getHeaders()
+    headers: getHeaders(headersData)
   });
   return result;
 };

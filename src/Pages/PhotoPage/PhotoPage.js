@@ -4,24 +4,29 @@ import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import PhotoContainer from "./PhotoContainer";
 import PhotoPageSlider from "./PhotoPageSlider";
-import { images } from "../../Api/dataTest";
+import { photosApi } from "../../Api";
+
 function PhotoPage({ id }) {
   const [imagesArr, setImagesArr] = useState([]);
   const [image, setImage] = useState({});
+  console.log(id);
   let isMount = false;
   useEffect(() => {
     isMount = true;
-    setTimeout(() => {
-      if (isMount) {
-        setImagesArr(images);
-        const image = images.find((image) => image.id === id)
-        setImage(image);
-      }
-  
-    }, 800);
-    return () => isMount = false;
+    isMount &&
+      photosApi.getOnePhoto(id).then(({ data: { data: { image } } }) =>
+        setImage(image)
+      );
+    // setTimeout(() => {
+    //   if (isMount) {
+    //     setImagesArr(images);
+    //     const image = images.find((image) => image.id === id)
+    //     setImage(image);
+    //   }
+
+    // }, 800);
+    return () => (isMount = false);
   }, []);
-  console.log(imagesArr);
   return (
     <PageWrapper>
       <Container maxWidth='xl'>
