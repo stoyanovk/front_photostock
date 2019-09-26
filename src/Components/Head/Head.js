@@ -6,7 +6,7 @@ import img from "../../assets/img/photo-camera.svg";
 import MenuDropList from "./MenuDropList";
 import HeaderSearch from "../Common/HeaderSearch";
 import useStyles from "./style";
-import {Link} from 'react-router-dom'
+import { Link } from "react-router-dom";
 
 export default function ButtonAppBar() {
   const classes = useStyles();
@@ -23,7 +23,9 @@ export default function ButtonAppBar() {
         <Toolbar className={classes.justifyContent}>
           <div className={classes.menuItem}>
             <div className={classes.logoWrap}>
-              <img className={classes.logo} src={img} alt='logo' />
+              <Link to='/'>
+                <img className={classes.logo} src={img} alt='logo' />
+              </Link>
             </div>
             <div
               className={classes.menuButton}

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import PageWrapper from "../../Components/PageWrapper";
 import Container from "@material-ui/core/Container";
 import {withConsumer} from '../../HOC'

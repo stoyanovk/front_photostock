@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import img from "../../assets/img/coffee-with-milk.jpg";
 import { FirstSectionWrapper, MainTitle } from "./style";
 import Typography from "@material-ui/core/Typography";
