@@ -5,11 +5,9 @@ import GridListTileBar from "@material-ui/core/GridListTileBar";
 import { Title, SectionWrapper } from "./style";
 import { withConsumer } from "../../HOC";
 import { withRouter } from "react-router-dom";
-
+import {redirectTo} from '../../utils'
 function CategorySection({ value: { categories }, history }) {
-  const handleClick = (id, method) => () => {
-    method(`category/${id}`);
-  };
+ 
   return (
     <SectionWrapper>
       <Title>Categories</Title>
@@ -19,7 +17,7 @@ function CategorySection({ value: { categories }, history }) {
             <GridListTile
               key={id}
               cols={2}
-              onClick={handleClick(id, history.push)}>
+              onClick={redirectTo(id, history.push,'category')}>
               <img src={label} alt={name} />
               <GridListTileBar title={name} />
             </GridListTile>

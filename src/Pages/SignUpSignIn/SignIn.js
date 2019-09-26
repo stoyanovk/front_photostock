@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
-import {connect} from 'react-redux'
+import { connect } from "react-redux";
 import Grid from "@material-ui/core/Grid";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
@@ -10,17 +10,17 @@ import PageWrapper from "../../Components/PageWrapper";
 import { StyledTextField } from "../SignUpSignIn/style";
 import { useStyles } from "./style";
 import { authApi } from "../../Api";
-import { Redirect } from 'react-router-dom';
-import {login} from '../../Store/Actions'
+import { withRouter } from "react-router-dom";
+import { login } from "../../Store/Actions";
 
 const initialState = {
   email: "",
   password: ""
 };
-function SignIn({auth,logIn}) {
+function SignIn({ auth, logIn }) {
   const classes = useStyles();
   const [state, setState] = useState(initialState);
-  console.log(auth, logIn)
+  console.log(auth, logIn);
   const handleChange = ({ target: { name, value } }) => {
     setState(prevState => ({ ...prevState, [name]: value }));
   };
@@ -29,12 +29,12 @@ function SignIn({auth,logIn}) {
     e.preventDefault();
 
     const stringState = JSON.stringify(state);
-    console.log(stringState);
+
     authApi
       .signIn(stringState, { "Content-type": "application/json" })
       .then(({ data: { data: { token } } }) => {
-        window.localStorage.setItem('token', token)
-        logIn(token)
+        window.localStorage.setItem("token", token);
+        logIn(token);
       });
   };
   return (
@@ -89,8 +89,11 @@ function SignIn({auth,logIn}) {
     </PageWrapper>
   );
 }
-const mapStateToProps = ({ auth }) => auth;
-const mapDispatchToProps = (dispatch) => {
-  return { logIn: () => dispatch(login()) }
-}
-export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
+const mapStateToProps = ({ auth }) => ({ auth });
+const mapDispatchToProps = dispatch => {
+  return { logIn: token => dispatch(login(token)) };
+};
+export default withRouter(connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SignIn));

@@ -4,7 +4,7 @@ import VariableWidthSlider from "../../Components/VariableWidthSlider";
 import { photosApi } from "../../Api";
 import SliderItem from "./SliderItem";
 import { withRouter } from "react-router-dom";
-
+import { redirectTo } from "../../utils";
 function MostPopularImagesSection({ history }) {
   const [popularImages, setPopularImage] = useState([]);
   let isMounted = false;
@@ -17,17 +17,15 @@ function MostPopularImagesSection({ history }) {
       });
     return () => (isMounted = false);
   }, []);
-  const handleClick = (id, method) => () => {
-    method(`/photo/${id}`);
-  };
-  const sliderItem = popularImages.map(({title, imageUrl, _id, }) => {
+
+  const sliderItem = popularImages.map(({ title, imageUrl, _id }) => {
     return (
       <SliderItem
         key={_id}
         id={_id}
         title={title}
         image={`https://photostock-back.herokuapp.com/storage/${imageUrl}`}
-        handleClick={handleClick(_id, history.push)}
+        handleClick={redirectTo(_id, history.push, "photo")}
       />
     );
   });

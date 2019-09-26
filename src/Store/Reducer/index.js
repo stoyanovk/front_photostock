@@ -3,7 +3,7 @@ const initialState = {
   token: ""
 };
 const isAutorized = token => {
-  return token !== null || "" ? true : false;
+  return token !== null || token !== '' ? true : false;
 };
 function UserReducer(state = initialState, action) {
   console.log(state)

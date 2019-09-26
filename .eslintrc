@@ -1,0 +1,12 @@
+{
+    "parser": "babel-eslint",
+    "extends": "airbnb",
+    "rules": {
+        "no-console": "error",
+        "lines-between-class-members": "off",
+        "no-implicit-dependencies": "off",
+        "no-submodule-imports": "off",
+        "ordered-imports": "off",
+
+    }
+}
