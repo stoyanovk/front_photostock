@@ -1,14 +1,12 @@
 import React from "react";
 import Container from "@material-ui/core/Container";
-import {
-  CategoryFirstWrapper,
-  MainTitle,
-} from "./style";
+import { CategoryFirstWrapper, MainTitle } from "./style";
+import {url} from '../../utils'
 export default function CategoryTitleSection({ category: { name, label } }) {
   return (
     <Container maxWidth='xl'>
       <CategoryFirstWrapper>
-        <img src={`${label}`} alt={name} />
+        <img src={`${url}${label}`} alt={name} />
         <MainTitle>{name}</MainTitle>
       </CategoryFirstWrapper>
     </Container>

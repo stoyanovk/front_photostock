@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { style } from "@material-ui/system";
 
 const FirstSectionWrapper = styled.div`
   height: 50vh;
@@ -32,7 +31,7 @@ const Title = styled.h2`
   font-size: 40px;
   color: #fff;
   margin-bottom: 30px;
-  margin-top:0;
+  margin-top: 0;
 `;
 const SliderItemStyle = styled.div`
   position: relative;

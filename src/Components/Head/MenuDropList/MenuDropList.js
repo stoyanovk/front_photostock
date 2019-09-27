@@ -1,7 +1,7 @@
 import React from "react";
 import { MenuDropListWrapper } from "./style";
 import { withConsumer } from "../../../HOC";
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 const columnCount = arr => {
   if (arr.length > 10) {
     return 2;
@@ -11,17 +11,17 @@ const columnCount = arr => {
   }
   return 1;
 };
-const handleClick = (id, method) => () => {
- method(`/category/${id}`)
-};
+
 function MenuDropList({ open, value: { categories }, history }) {
   const count = columnCount(categories);
   return (
     <MenuDropListWrapper count={count}>
       {open ? (
         <ul>
-          {categories.map(({ name, id }) => (
-            <li key={id} onClick={handleClick(id,history.push)}>{name}</li>
+          {categories.map(({ name, _id }) => (
+            <li key={_id}>
+              <Link to={`/category/${_id}`}>{name}</Link>
+            </li>
           ))}
         </ul>
       ) : null}

@@ -1,16 +1,24 @@
-import React, { createContext } from "react";
+import React, { createContext, useState, useEffect } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
-import { Provider } from "react-redux";
-import store from "../../Store/store";
+
 import Routes from "../../Routes";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import GlobalStyle from "../GlobalStyle";
-import { categories, tags } from "../../Api/dataTest";
+import { categoriesApi } from "../../Api";
+import { tags } from "../../Api/dataTest";
 const MyContext = createContext();
 
 const App = () => {
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    categoriesApi.getCategories().then(({ data: { data: { categories } } }) =>
+      setCategories(categories)
+    );
+  }, []);
+
   return (
-    <Provider store={store}>
+    <>
       <GlobalStyle />
       <CssBaseline />
       <MyContext.Provider value={{ categories, tags }}>
@@ -18,7 +26,7 @@ const App = () => {
           <Routes />
         </Router>
       </MyContext.Provider>
-    </Provider>
+    </>
   );
 };
 export { MyContext };

@@ -23,4 +23,8 @@ const Title = styled.h2`
   margin-bottom: 30px;
   margin-top: 0;
 `;
-export { PhotoContainerStyled, MainTitle, SectionWrapper, Title };
+const Text = styled.p`
+  font-size: 16px;
+  color: #fff;
+`;
+export { PhotoContainerStyled, MainTitle, SectionWrapper, Title, Text };

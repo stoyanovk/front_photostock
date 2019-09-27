@@ -21,6 +21,10 @@ const MenuDropListWrapper = styled.div`
     font-size: 16px;
     color: #2d2d2d;
     cursor: pointer;
+    a{
+      text-decoration: none;
+      color: #2d2d2d
+    }
   }
 `;
 export { MenuDropListWrapper };
