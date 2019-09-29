@@ -1,21 +1,22 @@
 import React, { createContext, useState, useEffect } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
-
+import { connect } from "react-redux";
 import Routes from "../../Routes";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import GlobalStyle from "../GlobalStyle";
+import { getCategories } from "../../Store/Actions";
 import { categoriesApi } from "../../Api";
 import { tags } from "../../Api/dataTest";
 const MyContext = createContext();
 
-const App = () => {
+const App = props => {
   const [categories, setCategories] = useState([]);
-
-  useEffect(() => {
-    categoriesApi.getCategories().then(({ data: { data: { categories } } }) =>
-      setCategories(categories)
-    );
-  }, []);
+  console.log(props);
+  // useEffect(() => {
+  //   categoriesApi.getCategories().then(({ data: { data: { categories } } }) =>
+  //     setCategories(categories)
+  //   );
+  // }, []);
 
   return (
     <>
@@ -29,5 +30,14 @@ const App = () => {
     </>
   );
 };
+
+const mapStateToProps = state => ({ state });
+const mapDispatchToProps = dispatch => {
+  return { onload: dispatch(getCategories()) };
+};
+console.log();
 export { MyContext };
-export default App;
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);

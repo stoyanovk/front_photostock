@@ -1,12 +1,16 @@
-import React from "react";
+import React, { memo } from "react";
 import { PhotoContainerStyled } from "./style";
 import { url } from "../../utils";
-export default function PhotoContainer({ image: { title, imageUrl } }) {
+function PhotoContainer({ image: { title, imageUrl } }, ...props) {
+  // console.log(title, imageUrl);
   return (
-    <>
-      <PhotoContainerStyled>
+    <PhotoContainerStyled>
+      {props===undefined ? (
+        <span>loading...</span>
+      ) : (
         <img src={`${url}${imageUrl}`} alt={title} />
-      </PhotoContainerStyled>
-    </>
+      )}
+    </PhotoContainerStyled>
   );
 }
+export default memo(PhotoContainer);

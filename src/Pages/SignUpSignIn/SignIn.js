@@ -11,7 +11,7 @@ import { StyledTextField } from "../SignUpSignIn/style";
 import { useStyles } from "./style";
 import { authApi } from "../../Api";
 import { withRouter } from "react-router-dom";
-import { login } from "../../Store/Actions";
+import { login } from "../../Store/Actions/userActions";
 
 const initialState = {
   email: "",
