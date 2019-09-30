@@ -9,9 +9,8 @@ import { logout } from "../../Store/Actions";
 const StyledMenu = styled(Menu)`
   transform: translateY(50px);
 `;
-function UserMenu(props) {
+function UserMenu({logout}) {
   const [anchorEl, setAnchorEl] = React.useState(null);
-
   const handleMenu = event => {
     setAnchorEl(event.currentTarget);
   };
@@ -43,8 +42,10 @@ function UserMenu(props) {
     </div>
   );
 }
-const mapStateToProps = {
-  logout
+const mapStateToProps = (dispatch)=>{
+  return {
+    logout:()=>dispatch(logout())
+  }
 };
 export default connect(
   null,
