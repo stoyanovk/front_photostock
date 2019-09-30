@@ -7,14 +7,17 @@ import MenuDropList from "./MenuDropList";
 import HeaderSearch from "../Common/HeaderSearch";
 import useStyles from "./style";
 import { Link } from "react-router-dom";
+import UserMenu from "./UserMenu";
+import { connect } from "react-redux";
 
-export default function ButtonAppBar() {
+function Head({ auth }) {
+  console.log(auth);
   const classes = useStyles();
   const [open, setOpen] = useState(false);
-  const mouseEnter = () => {
+  const mouseEnter = () => () => {
     setOpen(open => true);
   };
-  const mouseLeave = () => {
+  const mouseLeave = () => () => {
     setOpen(open => false);
   };
   return (
@@ -38,15 +41,20 @@ export default function ButtonAppBar() {
           </div>
           <div className={classes.dFlex}>
             <HeaderSearch />
-            <Link to='/sign-in'>
-              <Button color='inherit'>Sign In</Button>
-            </Link>
-            <Link to='/sign-up'>
-              <Button color='inherit'>Sign Up</Button>
-            </Link>
+            {auth ? (
+              <UserMenu />
+            ) : (
+              <>
+                <Link to='/sign-in'>Sign In</Link>
+                <Link to='/sign-up'>Sign Up</Link>
+              </>
+            )}
           </div>
         </Toolbar>
       </AppBar>
     </div>
   );
 }
+const mapStateToProps = ({ userReducer: { auth } }) => ({ auth });
+
+export default connect(mapStateToProps)(Head);

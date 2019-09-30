@@ -14,8 +14,7 @@ import { authApi } from "../../Api";
 const initialState = {
   name: "",
   email: "",
-  password: "",
-
+  password: ""
 };
 
 export default function SignUp() {
@@ -23,9 +22,9 @@ export default function SignUp() {
   const [state, setState] = useState(initialState);
   const handleSubmit = e => {
     e.preventDefault();
-
+   
     const stringState = JSON.stringify(state);
-    console.log(stringState);
+
     authApi
       .signUp(stringState, { "Content-type": "application/json" })
       .then(res => console.log(res));
@@ -55,7 +54,7 @@ export default function SignUp() {
                   autoComplete='Name'
                   name='name'
                   variant='standard'
-                  required
+                  required={true}
                   fullWidth
                   id='firstName'
                   label='Name'
@@ -68,7 +67,7 @@ export default function SignUp() {
                   onChange={handleChange}
                   value={state.email}
                   variant='standard'
-                  required
+                  required={true}
                   fullWidth
                   id='email'
                   label='Email Address'
@@ -81,8 +80,7 @@ export default function SignUp() {
                   onChange={handleChange}
                   value={state.password}
                   variant='standard'
-                  required
-                  // value={}
+                  required={true}
                   fullWidth
                   name='password'
                   label='Password'

@@ -17,10 +17,10 @@ const initialState = {
   email: "",
   password: ""
 };
-function SignIn({ auth, logIn }) {
+function SignIn({ auth, logIn,history }) {
   const classes = useStyles();
   const [state, setState] = useState(initialState);
-  console.log(auth, logIn);
+  console.log(auth);
   const handleChange = ({ target: { name, value } }) => {
     setState(prevState => ({ ...prevState, [name]: value }));
   };
@@ -35,8 +35,10 @@ function SignIn({ auth, logIn }) {
       .then(({ data: { data: { token } } }) => {
         window.localStorage.setItem("token", token);
         logIn(token);
+        history.push('/')
       });
   };
+
   return (
     <PageWrapper>
       <Container component='main' maxWidth='xs'>
@@ -53,7 +55,7 @@ function SignIn({ auth, logIn }) {
                 variant='standard'
                 value={state.email}
                 onChange={handleChange}
-                required
+                required={true}
                 fullWidth
                 id='email'
                 label='Email Address'
@@ -66,7 +68,7 @@ function SignIn({ auth, logIn }) {
                 value={state.password}
                 onChange={handleChange}
                 variant='standard'
-                required
+                required={true}
                 fullWidth
                 name='password'
                 label='Password'
@@ -89,11 +91,13 @@ function SignIn({ auth, logIn }) {
     </PageWrapper>
   );
 }
-const mapStateToProps = ({ auth }) => ({ auth });
+const mapStateToProps = ({ userReducer: { auth } }) => ({ auth });
 const mapDispatchToProps = dispatch => {
   return { logIn: token => dispatch(login(token)) };
 };
-export default withRouter(connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(SignIn));
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(SignIn)
+);

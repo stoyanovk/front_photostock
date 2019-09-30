@@ -1,10 +1,9 @@
 const initialState = {
-  categories: []
+  categories: [],
+  
 };
 
 function categoryReducer(state = initialState, action) {
-  console.log(state);
-
   switch (action.type) {
     case "GET_CATEGORIES":
       return {

@@ -1,4 +1,4 @@
 import { login, logout, onLoadLogin } from "./userActions";
-import { getCategories } from "./categoriesActions";
+import { $getCategories } from "./categoriesActions";
 
-export { login, logout, onLoadLogin, getCategories };
+export { login, logout, onLoadLogin, $getCategories };

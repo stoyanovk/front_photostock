@@ -1,5 +1,6 @@
 const onLoadLogin = () => {
   let token = window.localStorage.getItem("token");
+
   return {
     type: "ON_LOAD_LOGIN",
     payload: token

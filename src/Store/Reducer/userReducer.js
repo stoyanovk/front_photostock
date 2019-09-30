@@ -3,12 +3,21 @@ const initialState = {
   token: ""
 };
 const isAutorized = token => {
-  return token !== null || token !== '' ? true : false;
+  switch (token) {
+    case undefined:
+      return false;
+    case null:
+      return false;
+    case "":
+      return false;
+    default:
+      return true;
+  }
 };
 function userReducer(state = initialState, action) {
-  console.log(state)
   switch (action.type) {
     case "ON_LOAD_LOGIN":
+      console.log(isAutorized(action.payload));
       return {
         token: action.payload,
         auth: isAutorized(action.payload)
@@ -19,9 +28,10 @@ function userReducer(state = initialState, action) {
         auth: true
       };
     case "LOGOUT":
+      console.log('LOGOUT')
       return {
         token: "",
-        auth: action.payload
+        auth: false
       };
     default:
       return state;

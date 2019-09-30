@@ -31,6 +31,7 @@ const useStyles = makeStyles(theme => ({
   },
   dFlex: {
     display: "flex"
-  }
+  },
+
 }));
 export default useStyles;

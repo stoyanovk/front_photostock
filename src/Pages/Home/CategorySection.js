@@ -3,12 +3,14 @@ import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
 import GridListTileBar from "@material-ui/core/GridListTileBar";
 import { Title, SectionWrapper } from "./style";
-import { withConsumer } from "../../HOC";
+import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { redirectTo } from "../../utils";
 import { url } from "../../utils";
 
-function CategorySection({ value: { categories }, history }) {
+
+function CategorySection({ categories, history }) {
+
   return (
     <SectionWrapper>
       <Title>Categories</Title>
@@ -26,4 +28,8 @@ function CategorySection({ value: { categories }, history }) {
     </SectionWrapper>
   );
 }
-export default withRouter(withConsumer(CategorySection));
+const mapStateToProps = ({ categoryReducer: { categories } }) => ({
+  categories
+});
+
+export default connect(mapStateToProps)(withRouter(CategorySection));

@@ -1,7 +1,7 @@
 import React from "react";
 import { MenuDropListWrapper } from "./style";
-import { withConsumer } from "../../../HOC";
 import { withRouter, Link } from "react-router-dom";
+import { connect } from "react-redux";
 const columnCount = arr => {
   if (arr.length > 10) {
     return 2;
@@ -12,8 +12,9 @@ const columnCount = arr => {
   return 1;
 };
 
-function MenuDropList({ open, value: { categories }, history }) {
+function MenuDropList({ categories, open }) {
   const count = columnCount(categories);
+  // console.log(open);
   return (
     <MenuDropListWrapper count={count}>
       {open ? (
@@ -28,12 +29,9 @@ function MenuDropList({ open, value: { categories }, history }) {
     </MenuDropListWrapper>
   );
 }
-MenuDropList.defaultProps = {
-  categories: [
-    { id: 1, label: "anime" },
-    { id: 2, label: "animal" },
-    { id: 3, label: "food" }
-  ]
-};
 
-export default withRouter(withConsumer(MenuDropList));
+const mapStateToProps = ({ categoryReducer: { categories } }) => ({
+  categories
+});
+
+export default connect(mapStateToProps)(withRouter(MenuDropList));
