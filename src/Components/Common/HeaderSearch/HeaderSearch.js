@@ -22,7 +22,6 @@ const HeaderSearch = () => {
   };
 
   return (
-    <form>
       <AutosuggestWrapper
         name='tags'
         InputValue={value}
@@ -35,7 +34,6 @@ const HeaderSearch = () => {
         classNamePrefix='select'
         onMenuClose ={()=>console.log('request')}
       /> 
-    </form>
   );
 };
 export default HeaderSearch;

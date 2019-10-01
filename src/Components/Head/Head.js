@@ -1,24 +1,22 @@
 import React, { useState } from "react";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
-import Button from "@material-ui/core/Button";
 import img from "../../assets/img/photo-camera.svg";
 import MenuDropList from "./MenuDropList";
 import HeaderSearch from "../Common/HeaderSearch";
-import useStyles from "./style";
+import { useStyles, LinkWrapper} from "./style";
 import { Link } from "react-router-dom";
 import UserMenu from "./UserMenu";
 import { connect } from "react-redux";
 
 function Head({ auth }) {
-  console.log(auth);
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const mouseEnter = () => () => {
-    setOpen(open => true);
+    setOpen(true);
   };
   const mouseLeave = () => () => {
-    setOpen(open => false);
+    setOpen(false);
   };
   return (
     <div>
@@ -32,24 +30,24 @@ function Head({ auth }) {
             </div>
             <div
               className={classes.menuButton}
-              onMouseLeave={mouseLeave}
-              onMouseEnter={mouseEnter}
+              onMouseLeave={mouseLeave()}
+              onMouseEnter={mouseEnter()}
               body1='span'>
               CATEGORY
               <MenuDropList open={open} />
             </div>
           </div>
-          <div className={classes.dFlex}>
+          
             <HeaderSearch />
             {auth ? (
               <UserMenu />
             ) : (
-              <>
+              <LinkWrapper>
                 <Link to='/sign-in'>Sign In</Link>
                 <Link to='/sign-up'>Sign Up</Link>
-              </>
+              </LinkWrapper>
             )}
-          </div>
+
         </Toolbar>
       </AppBar>
     </div>
@@ -58,3 +56,4 @@ function Head({ auth }) {
 const mapStateToProps = ({ userReducer: { auth } }) => ({ auth });
 
 export default connect(mapStateToProps)(Head);
+

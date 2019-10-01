@@ -54,10 +54,15 @@ const useStyles = makeStyles(theme => ({
   },
   title: {
     color: "#fff"
-    },
-    link: {
-        color: '#fff',
-        
+  },
+  link: {
+    color: "#fff"
   }
 }));
-export { useStyles, StyledTextField };
+const ErrMessage = styled.span`
+  color: red;
+  text-align: center;
+  display: block;
+`;
+
+export { useStyles, StyledTextField, ErrMessage };

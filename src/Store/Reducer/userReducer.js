@@ -17,7 +17,6 @@ const isAutorized = token => {
 function userReducer(state = initialState, action) {
   switch (action.type) {
     case "ON_LOAD_LOGIN":
-      console.log(isAutorized(action.payload));
       return {
         token: action.payload,
         auth: isAutorized(action.payload)

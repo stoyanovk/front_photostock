@@ -23,7 +23,8 @@
     "redux-thunk": "^2.3.0",
     "shortid": "^2.2.15",
     "source-map-explorer": "^2.1.0",
-    "styled-components": "^4.3.2"
+    "styled-components": "^4.3.2",
+    "validator": "^11.1.0"
   },
   "scripts": {
     "start": "react-scripts start",

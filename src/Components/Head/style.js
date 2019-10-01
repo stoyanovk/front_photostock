@@ -1,4 +1,17 @@
 import { makeStyles } from "@material-ui/core/styles";
+import styled from "styled-components";
+
+const LinkWrapper = styled.div`
+  a {
+    color: #fff;
+    font-size: 16px;
+    margin: 0 10px;
+    text-decoration: none;
+    &:hover {
+      color: #fff;
+    }
+  }
+`;
 const useStyles = makeStyles(theme => ({
   header: {
     position: "relative",
@@ -23,6 +36,7 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1
   },
   justifyContent: {
+    display: "flex",
     justifyContent: "space-between"
   },
   menuItem: {
@@ -31,7 +45,6 @@ const useStyles = makeStyles(theme => ({
   },
   dFlex: {
     display: "flex"
-  },
-
+  }
 }));
-export default useStyles;
+export { LinkWrapper, useStyles };

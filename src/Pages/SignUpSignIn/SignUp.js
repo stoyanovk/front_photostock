@@ -8,7 +8,9 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import PageWrapper from "../../Components/PageWrapper";
-import { useStyles, StyledTextField } from "./style";
+import { useStyles, StyledTextField, ErrMessage } from "./style";
+import { isEmail, isEmpty } from "validator";
+import { withRouter } from "react-router-dom";
 import { authApi } from "../../Api";
 
 const initialState = {
@@ -17,17 +19,33 @@ const initialState = {
   password: ""
 };
 
-export default function SignUp() {
+function SignUp({ history }) {
   const classes = useStyles();
   const [state, setState] = useState(initialState);
+  const [errorMessage, setErrorMessage] = useState("");
+
   const handleSubmit = e => {
     e.preventDefault();
-   
+    const { name, email, password } = state;
+    if (isEmpty(name)) {
+      setErrorMessage("empty name field");
+      return;
+    } else if (isEmpty(email)) {
+      setErrorMessage("empty email field");
+      return;
+    } else if (isEmpty(password)) {
+      setErrorMessage("is empty password field");
+      return;
+    } else if (!isEmail(email)) {
+      console.log(isEmail(email));
+      setErrorMessage("is not valid email");
+      return;
+    }
+    setErrorMessage("");
     const stringState = JSON.stringify(state);
-
     authApi
       .signUp(stringState, { "Content-type": "application/json" })
-      .then(res => console.log(res));
+      .then(res => history.push("/sign-in"));
   };
 
   const handleChange = ({ target: { name, value } }) => {
@@ -98,6 +116,7 @@ export default function SignUp() {
               className={classes.submit}>
               Sign Up
             </Button>
+            <ErrMessage>{errorMessage}</ErrMessage>
             <Grid container justify='flex-end'>
               <Grid item>
                 <Link to='/sign-in' className={classes.link} variant='body2'>
@@ -111,3 +130,4 @@ export default function SignUp() {
     </PageWrapper>
   );
 }
+export default withRouter(SignUp);

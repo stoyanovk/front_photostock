@@ -14,7 +14,6 @@ const columnCount = arr => {
 
 function MenuDropList({ categories, open }) {
   const count = columnCount(categories);
-  // console.log(open);
   return (
     <MenuDropListWrapper count={count}>
       {open ? (
