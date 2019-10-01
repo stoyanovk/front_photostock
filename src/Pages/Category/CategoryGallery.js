@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
 import GridListTileBar from "@material-ui/core/GridListTileBar";
-
+import { GridImg } from "./style";
 export default function CategoryGallery({ category: { images } }) {
   return images ? (
     <SectionWrapper>
@@ -15,7 +15,7 @@ export default function CategoryGallery({ category: { images } }) {
           return (
             <GridListTile key={_id}>
               <Link to={`/photo/${_id}`}>
-                <img src={`${url}${imageUrl}`} alt={alt} />
+                <GridImg src={`${url}${imageUrl}`} alt={alt} />
                 <GridListTileBar
                   title={<span>{title}</span>}
                   subtitle={<span>{`${desc}...`}</span>}
@@ -30,4 +30,4 @@ export default function CategoryGallery({ category: { images } }) {
     <h2> Загрузка...</h2>
   );
 }
-// { category: { images } }
+

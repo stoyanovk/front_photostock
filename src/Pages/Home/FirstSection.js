@@ -10,7 +10,7 @@ function FirstSection({ value: { tags } }) {
   return (
     <FirstSectionWrapper>
       <img src={img} alt='bg-img' />
-      <MainTitle>Somthing very beautiful</MainTitle>
+      <MainTitle>Something very beautiful</MainTitle>
       <Grid container alignItems='center'>
         <Typography variant='h6' style={{ color: "#fff" }}>
           Popular tags:

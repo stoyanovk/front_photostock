@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect } from "react";
+import React, { createContext } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import { connect } from "react-redux";
 import Routes from "../../Routes";
@@ -10,9 +10,8 @@ const MyContext = createContext();
 
 const App = ({ $getCategories, onLoadLogin }) => {
   onLoadLogin();
-  useEffect(() => {
-    $getCategories().then();
-  }, []);
+  $getCategories();
+
   return (
     <>
       <GlobalStyle />

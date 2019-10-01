@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Route, Redirect } from "react-router-dom";
 
 function PrivatRoute({ component: Component, auth, ...rest }) {
-  return !auth ? (
+  return auth ? (
       <Route {...rest} render={(props) => {
           console.log(props, rest);
           return (<Component {...rest} {...props} />)

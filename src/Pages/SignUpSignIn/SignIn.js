@@ -19,8 +19,7 @@ const initialState = {
 };
 
 function SignIn(props) {
-
-  const { logIn, history, his } = props
+  const { logIn, history } = props;
   const classes = useStyles();
   const [state, setState] = useState(initialState);
   const [errorMessage, setErrorMessage] = useState("");
