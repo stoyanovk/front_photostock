@@ -9,8 +9,11 @@ class AuthApi {
       headersData
     });
   }
-  signIn(data, headersData) {
-    return apiCall({ url: `${url}login`, method: "post", data, headersData });
+  signIn(data) {
+    return apiCall({ url: `${url}login`, method: "post", data });
+  }
+  onLoadLogin() {
+    return apiCall({ url: `${url}get-user-by-token`, method: "get" });
   }
 }
 export default AuthApi;

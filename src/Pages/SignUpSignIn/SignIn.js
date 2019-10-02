@@ -43,14 +43,14 @@ function SignIn(props) {
       return;
     }
     setErrorMessage("");
-    const stringState = JSON.stringify(state);
-    authApi
-      .signIn(stringState, { "Content-type": "application/json" })
-      .then(({ data: { data: { token } } }) => {
-        window.localStorage.setItem("token", token);
-        logIn(token);
-        history.push("/");
-      });
+
+    authApi.signIn(state).then(({ data: { data } }) => {
+      const { token } = data;
+      window.localStorage.setItem("token", token);
+      console.log(data);
+      logIn(data);
+      // history.push("/");s
+    });
   };
 
   return (

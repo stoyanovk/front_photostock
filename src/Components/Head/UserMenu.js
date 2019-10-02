@@ -6,10 +6,11 @@ import Menu from "@material-ui/core/Menu";
 import styled from "styled-components";
 import { connect } from "react-redux";
 import { logout } from "../../Store/Actions";
+import { Link } from "react-router-dom";
 const StyledMenu = styled(Menu)`
   transform: translateY(50px);
 `;
-function UserMenu({logout}) {
+function UserMenu({ logout, user }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const handleMenu = event => {
     setAnchorEl(event.currentTarget);
@@ -35,19 +36,22 @@ function UserMenu({logout}) {
         keepMounted
         open={Boolean(anchorEl)}
         onClose={handleClose}>
-        <MenuItem onClick={handleClose}>Profile</MenuItem>
+        <Link to={`/user/${user._id}`}>
+          <MenuItem onClick={handleClose}>Profile</MenuItem>
+        </Link>
         <MenuItem onClick={handleClose}>My account</MenuItem>
         <MenuItem onClick={() => logout()}>Log out</MenuItem>
       </StyledMenu>
     </div>
   );
 }
-const mapStateToProps = (dispatch)=>{
+const mapStateToProps = ({ userReducer: { user } }) => ({ user });
+const mapDispatchToProps = dispatch => {
   return {
-    logout:()=>dispatch(logout())
-  }
+    logout: () => dispatch(logout())
+  };
 };
 export default connect(
-  null,
-  mapStateToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(UserMenu);

@@ -1,15 +1,23 @@
-const onLoadLogin = () => {
-  let token = window.localStorage.getItem("token");
+import { authApi } from "../../Api";
+const onLoadLogin = () => async dispatch => {
+  const {
+    data: {
+      data: { user }
+    }
+  } = await authApi.onLoadLogin();
 
-  return {
+  const token = localStorage.getItem("token");
+  return dispatch({
     type: "ON_LOAD_LOGIN",
-    payload: token
-  };
+    payload: user,
+    token
+  });
 };
-const login = token => {
+const login = ({ token, user }) => {
   return {
     type: "LOGIN",
-    payload: token
+    token,
+    user
   };
 };
 const logout = () => {

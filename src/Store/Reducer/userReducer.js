@@ -1,6 +1,7 @@
 const initialState = {
   auth: false,
-  token: ""
+  token: "",
+  user:{}
 };
 const isAutorized = token => {
   switch (token) {
@@ -19,18 +20,21 @@ function userReducer(state = initialState, action) {
     case "ON_LOAD_LOGIN":
       return {
         token: action.payload,
-        auth: isAutorized(action.payload)
+        auth: true,
+        user: action.payload,
       };
     case "LOGIN":
       return {
-        token: action.payload,
-        auth: true
+        token: action.token,
+        auth: true,
+        user: action.user
       };
     case "LOGOUT":
       console.log('LOGOUT')
       return {
         token: "",
-        auth: false
+        auth: false,
+        user:{},
       };
     default:
       return state;

@@ -6,11 +6,17 @@ import PhotoPage from "../Pages/PhotoPage";
 import User from "../Pages/User";
 import { SignUp, SignIn } from "../Pages/SignUpSignIn";
 import { connect } from "react-redux";
-const Routes = ({ auth }) => {
+import ProvatRoute from "./PrivatRoute";
+const Routes = ({ auth, user }) => {
+  console.log(user);
   return (
     <Switch>
       <Route exact path='/' component={Home} />
-      <Route path='/user' component={User} />
+      <Route
+        path='/user/:id'
+        render={() => (auth ? <User /> : <Redirect to='/' />)}
+      />
+
       <Route
         exact
         path='/photo/:id'
@@ -44,5 +50,5 @@ const Routes = ({ auth }) => {
   );
 };
 
-const mapStateToProps = ({ userReducer: { auth } }) => ({ auth });
+const mapStateToProps = ({ userReducer: { auth, user } }) => ({ auth, user });
 export default connect(mapStateToProps)(Routes);
