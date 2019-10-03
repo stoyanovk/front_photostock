@@ -38,17 +38,22 @@ function SignIn(props) {
       setErrorMessage("is empty password field");
       return;
     } else if (!isEmail(email)) {
-
       setErrorMessage("is not valid email");
       return;
     }
     setErrorMessage("");
 
-    authApi.signIn(state).then(({ data: { data } }) => {
-      const { token,user:{_id} } = data;
-      window.localStorage.setItem("token", token);
-      logIn(data);
-       history.push(`/user/${_id}`);
+    authApi.signIn(state).then(({ data: { data, status, message } }) => {
+      if (status === 'success') {
+        const { token, user: { _id } } = data;
+        window.localStorage.setItem("token", token);
+        logIn(data);
+        history.push(`/user/${_id}`);
+      }
+      else {
+        setErrorMessage(message);
+      }
+      
     });
   };
 

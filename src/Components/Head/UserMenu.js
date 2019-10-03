@@ -21,7 +21,7 @@ function UserMenu({ logout, user, history }) {
   };
   const handleLogout = () => {
     logout();
-    history.push('/sign-up')
+    history.push('/sign-in')
   };
   return (
     <div>
