@@ -6,11 +6,11 @@ import Menu from "@material-ui/core/Menu";
 import styled from "styled-components";
 import { connect } from "react-redux";
 import { logout } from "../../Store/Actions";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 const StyledMenu = styled(Menu)`
   transform: translateY(50px);
 `;
-function UserMenu({ logout, user }) {
+function UserMenu({ logout, user, history }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const handleMenu = event => {
     setAnchorEl(event.currentTarget);
@@ -19,7 +19,10 @@ function UserMenu({ logout, user }) {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
+  const handleLogout = () => {
+    logout();
+    history.push('/sign-up')
+  };
   return (
     <div>
       <IconButton
@@ -40,7 +43,7 @@ function UserMenu({ logout, user }) {
           <MenuItem onClick={handleClose}>Profile</MenuItem>
         </Link>
         <MenuItem onClick={handleClose}>My account</MenuItem>
-        <MenuItem onClick={() => logout()}>Log out</MenuItem>
+        <MenuItem onClick={handleLogout}>Log out</MenuItem>
       </StyledMenu>
     </div>
   );
@@ -54,4 +57,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(UserMenu);
+)(withRouter(UserMenu));

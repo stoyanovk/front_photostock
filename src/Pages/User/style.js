@@ -2,6 +2,7 @@ import styled from "styled-components";
 const UserFirstWrapper = styled.div`
   padding: 30px 0;
   position: relative;
+  z-index: 1;
 `;
 const UserFirstImg = styled.img`
   position: absolute;
@@ -14,10 +15,9 @@ const UserFirstImg = styled.img`
   z-index: -1;
 `;
 const AvatarImageWrap = styled.div`
-  max-width: 300px;
-  max-height: 300px;
+  max-width: 150px;
   width: 100%;
-  height: 100%;
+  height: 150%;
   margin: 20px;
   border-radius: 50%;
   overflow: hidden;
@@ -25,6 +25,11 @@ const AvatarImageWrap = styled.div`
     width: 100%;
     height: 100%;
     object-fit: cover;
+  }
+
+  @media (min-width: 568px) {
+    max-width: 300px;
+    height: 300px;
   }
 `;
 const MainTitle = styled.h1`
@@ -46,6 +51,11 @@ const Text = styled.p`
   font-size: 16px;
   color: #fff;
 `;
+const GridImg = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+`;
 export {
   MainTitle,
   SectionWrapper,
@@ -53,5 +63,6 @@ export {
   Text,
   UserFirstWrapper,
   AvatarImageWrap,
-  UserFirstImg
+  UserFirstImg,
+  GridImg
 };

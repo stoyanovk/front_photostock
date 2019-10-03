@@ -9,7 +9,9 @@ import { tags } from "../../Api/dataTest";
 const MyContext = createContext();
 
 const App = ({ $getCategories, onLoadLogin }) => {
-  onLoadLogin();
+  const token = localStorage.getItem("token");
+
+  token && onLoadLogin();
   $getCategories();
 
   return (

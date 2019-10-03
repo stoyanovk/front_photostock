@@ -1,14 +1,15 @@
 import React from "react";
 import PageWrapper from "../../Components/PageWrapper";
 import UserFirst from "./UserFirst";
-import { connect } from "react-redux";
+import UserGallery from './UserGallery'
+
 function User({ user }) {
-  console.log(user);
   return (
     <PageWrapper>
-      <UserFirst />
+      <UserFirst user={user} />
+      <UserGallery id={user._id}/>
     </PageWrapper>
   );
 }
-const mapStateToProps = ({ userReducer: { user } }) => ({ user });
-export default connect(mapStateToProps)(User);
+
+export default User;

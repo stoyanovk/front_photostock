@@ -6,15 +6,15 @@ import PhotoPage from "../Pages/PhotoPage";
 import User from "../Pages/User";
 import { SignUp, SignIn } from "../Pages/SignUpSignIn";
 import { connect } from "react-redux";
-import ProvatRoute from "./PrivatRoute";
+// import ProvatRoute from "./PrivatRoute";
 const Routes = ({ auth, user }) => {
-  console.log(user);
   return (
     <Switch>
       <Route exact path='/' component={Home} />
       <Route
         path='/user/:id'
-        render={() => (auth ? <User /> : <Redirect to='/' />)}
+        // render={() => (auth ? <User user={user} /> : <Redirect to='/' />)}
+        render={() => <User user={user} />}
       />
 
       <Route

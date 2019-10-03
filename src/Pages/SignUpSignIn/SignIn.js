@@ -38,18 +38,17 @@ function SignIn(props) {
       setErrorMessage("is empty password field");
       return;
     } else if (!isEmail(email)) {
-      console.log(isEmail(email));
+
       setErrorMessage("is not valid email");
       return;
     }
     setErrorMessage("");
 
     authApi.signIn(state).then(({ data: { data } }) => {
-      const { token } = data;
+      const { token,user:{_id} } = data;
       window.localStorage.setItem("token", token);
-      console.log(data);
       logIn(data);
-      // history.push("/");s
+       history.push(`/user/${_id}`);
     });
   };
 

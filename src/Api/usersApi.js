@@ -1,5 +1,5 @@
 import {apiCall} from './common';
-const url = 'users';
+const url = 'api/users';
 class UsersApi {
     getUsers = ()=>{
         return apiCall({url, method:'get'})
