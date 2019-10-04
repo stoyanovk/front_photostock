@@ -21,7 +21,7 @@ function UserMenu({ logout, user, history }) {
   };
   const handleLogout = () => {
     logout();
-    history.push('/sign-in')
+    history.push("/sign-in");
   };
   return (
     <div>
@@ -42,7 +42,9 @@ function UserMenu({ logout, user, history }) {
         <Link to={`/user/${user._id}`}>
           <MenuItem onClick={handleClose}>Profile</MenuItem>
         </Link>
-        <MenuItem onClick={handleClose}>My account</MenuItem>
+        <Link to='/photo/add'>
+          <MenuItem onClick={handleClose}>Add Photo</MenuItem>
+        </Link>
         <MenuItem onClick={handleLogout}>Log out</MenuItem>
       </StyledMenu>
     </div>

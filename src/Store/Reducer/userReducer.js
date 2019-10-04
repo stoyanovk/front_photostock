@@ -3,18 +3,7 @@ const initialState = {
   token: "",
   user:{}
 };
-const isAutorized = token => {
-  switch (token) {
-    case undefined:
-      return false;
-    case null:
-      return false;
-    case "":
-      return false;
-    default:
-      return true;
-  }
-};
+
 function userReducer(state = initialState, action) {
   switch (action.type) {
     case "ON_LOAD_LOGIN":

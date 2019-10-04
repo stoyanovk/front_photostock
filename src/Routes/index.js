@@ -4,6 +4,7 @@ import Home from "../Pages/Home";
 import Category from "../Pages/Category";
 import PhotoPage from "../Pages/PhotoPage";
 import User from "../Pages/User";
+import AddPhoto from "../Pages/AddPhoto";
 import { SignUp, SignIn } from "../Pages/SignUpSignIn";
 import { connect } from "react-redux";
 // import ProvatRoute from "./PrivatRoute";
@@ -17,6 +18,12 @@ const Routes = ({ auth, user }) => {
         render={() => <User user={user} />}
       />
 
+      <Route
+        exact
+        path='/photo/add'
+        // render={() => (auth ? <AddPhoto user={user} /> : <Redirect to='/' />)}
+        render={() => <AddPhoto user={user} /> }
+      />
       <Route
         exact
         path='/photo/:id'
