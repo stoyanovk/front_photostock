@@ -6,6 +6,7 @@ import { photosApi } from "../../Api";
 import Typography from "@material-ui/core/Typography";
 import { SectionWrapper } from "./style";
 import CommentField from "./CommentField";
+import { connect } from "react-redux";
 const useStyles = makeStyles(theme => ({
   root: {
     width: "100%",
@@ -24,7 +25,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function Comments({ photoId }) {
+function Comments({ photoId, auth }) {
   const classes = useStyles();
   const [comments, setComments] = useState([]);
   useEffect(() => {
@@ -39,7 +40,7 @@ export default function Comments({ photoId }) {
       .getPhotoComments(photoId)
       .then(({ data: { data: { comments } } }) => setComments(comments));
   };
-
+  console.log(auth);
   return (
     <SectionWrapper>
       <Typography className={classes.title} component='h2'>
@@ -47,7 +48,14 @@ export default function Comments({ photoId }) {
       </Typography>
 
       <div className={classes.root}>
-        <CommentField photoId={photoId} commentsUpdate={commentsUpdate} />
+        {auth ? (
+          <CommentField photoId={photoId} commentsUpdate={commentsUpdate} />
+        ) : (
+          <span>
+            Оставлять комментарии могут только авторизированные пользователи
+          </span>
+        )}
+
         <List>
           {comments.map(({ text, _id, user: { label, name } }) => {
             return (
@@ -59,3 +67,6 @@ export default function Comments({ photoId }) {
     </SectionWrapper>
   );
 }
+
+const mapStateToProps = ({ userReducer: { auth } }) => ({ auth });
+export default connect(mapStateToProps)(Comments);
