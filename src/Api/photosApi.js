@@ -16,10 +16,11 @@ class PhotosApi {
   editPhoto = (id, data) => {
     return apiCall({ url: `${url}/${id}`, method: "put", data });
   };
-  getPhotoComments = (id) => {
+  getPhotoComments = id => {
     return apiCall({ url: `${url}/${id}/comments`, method: "get" });
-  }
+  };
+  addPhotoComment = (id, data) => {
+    return apiCall({ url: `${url}/${id}/comments`, method: "post", data });
+  };
 }
 export default PhotosApi;
-
-
