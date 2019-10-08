@@ -2,14 +2,21 @@ import React, { useState } from "react";
 import PageWrapper from "../../Components/PageWrapper";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
-import TextField from "@material-ui/core/TextField";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
-import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
-import { photosApi } from "../../Api";
 import Button from "@material-ui/core/Button";
-// import { isEmail, isEmpty } from "validator";
+import { photosApi } from "../../Api";
+import { withRouter } from "react-router-dom";
+import {
+  StyledTextField,
+  StyledSelect,
+  StyledLabel,
+  StyledImg,
+  ErrMessage,
+  GridContentWrap
+} from "./style";
+import { isEmpty } from "validator";
 import { connect } from "react-redux";
 const initState = {
   title: "",
@@ -18,8 +25,10 @@ const initState = {
   category: "",
   image: ""
 };
-function AddPhoto({ categories }) {
+function AddPhoto({ categories, history }) {
   const [state, setState] = useState(initState);
+  const [fileUrl, setFileUrl] = useState("");
+  const [err, setErr] = useState("");
   const { title, description, alt, category, image } = state;
   const handleChange = ({ target: { name, value } }) => {
     return setState(state => ({
@@ -29,6 +38,7 @@ function AddPhoto({ categories }) {
   };
   const handleChangeFile = ({ target }) => {
     const file = target.files[0];
+    setFileUrl(URL.createObjectURL(file));
     return setState(state => ({
       ...state,
       image: file
@@ -37,6 +47,16 @@ function AddPhoto({ categories }) {
   const handleSubmit = e => {
     e.preventDefault();
 
+    if (
+      isEmpty(title) ||
+      isEmpty(description) ||
+      isEmpty(category) ||
+      image === ""
+    ) {
+      setErr("fill in empty fields");
+      return;
+    }
+
     const formData = new FormData();
 
     formData.append("title", title);
@@ -44,7 +64,9 @@ function AddPhoto({ categories }) {
     formData.append("alt", alt);
     formData.append("image", image);
     formData.append("category_id", category);
-    photosApi.addNewPhoto(formData).then(res => console.log(res));
+    photosApi.addNewPhoto(formData).then(({ data: { data: { _id } } }) =>
+      history.push(`/photo/${_id}`)
+    );
   };
   return (
     <PageWrapper>
@@ -52,64 +74,75 @@ function AddPhoto({ categories }) {
         <form onSubmit={handleSubmit}>
           <Grid container style={{ padding: 100 }}>
             <Grid item xs={12} md={6}>
-              <label>
-                lolo lfdgodobnm pojfpnte
-                <input onChange={handleChangeFile} name='' type='file' />
-              </label>
-              <div>
-                <img src='' alt='' />
-              </div>
+              <GridContentWrap>
+                <StyledLabel>
+                  <input onChange={handleChangeFile} name='' type='file' />
+                </StyledLabel>
+                {fileUrl ? <StyledImg src={fileUrl} alt='label' /> : null}
+              </GridContentWrap>
             </Grid>
             <Grid item xs={12} md={6}>
-              <TextField
-                fullWidth
-                label='title'
-                name='title'
-                value={title}
-                onChange={handleChange}
-                margin='normal'
-              />
-              <TextField
-                fullWidth
-                label='description'
-                name='description'
-                value={description}
-                onChange={handleChange}
-                margin='normal'
-                multiline
-              />
-              <TextField
-                fullWidth
-                label='alt'
-                name='alt'
-                value={alt}
-                onChange={handleChange}
-                margin='normal'
-                multiline
-              />
-              <FormControl style={{ width: 300 }}>
-                <InputLabel htmlFor='age-simple'>Category</InputLabel>
-                <Select
+              <GridContentWrap>
+                <StyledTextField
+                  fullWidth
+                  label='title'
+                  name='title'
+                  value={title}
                   onChange={handleChange}
-                  value={category}
-                  inputProps={{
-                    name: "category",
-                    id: "select-category"
-                  }}>
-                  {categories.map(({ name, _id }) => {
-                    return (
-                      <MenuItem key={_id} value={_id}>
-                        {name}
-                      </MenuItem>
-                    );
-                  })}
-                </Select>
-              </FormControl>
+                  margin='normal'
+                  autoComplete='off'
+                />
+                <StyledTextField
+                  fullWidth
+                  label='description'
+                  name='description'
+                  value={description}
+                  onChange={handleChange}
+                  margin='normal'
+                  multiline
+                />
+                <StyledTextField
+                  fullWidth
+                  label='alt'
+                  name='alt'
+                  value={alt}
+                  onChange={handleChange}
+                  margin='normal'
+                />
+
+                <StyledSelect>
+                  <InputLabel htmlFor='age-simple'>Category</InputLabel>
+                  <Select
+                    onChange={handleChange}
+                    value={category}
+                    inputProps={{
+                      name: "category",
+                      id: "select-category"
+                    }}>
+                    {categories.map(({ name, _id }) => {
+                      return (
+                        <MenuItem key={_id} value={_id}>
+                          {name}
+                        </MenuItem>
+                      );
+                    })}
+                  </Select>
+                </StyledSelect>
+              </GridContentWrap>
+            </Grid>
+            <Grid
+              container
+              direction='column'
+              justify='center'
+              alignItems='center'>
+              <GridContentWrap margin='40px 0 0'>
+                <ErrMessage>{err}</ErrMessage>
+                <Button variant='contained' type='submit' color='primary'>
+                  button
+                </Button>
+              </GridContentWrap>
             </Grid>
           </Grid>
-          <Button variant='contained' type="submit" color='primary'>
-            button
-          </Button>
         </form>
       </Container>
     </PageWrapper>
@@ -118,4 +151,4 @@ function AddPhoto({ categories }) {
 const mapStateToProps = ({ categoryReducer: { categories } }) => ({
   categories
 });
-export default connect(mapStateToProps)(AddPhoto);
+export default withRouter(connect(mapStateToProps)(AddPhoto));

@@ -41,6 +41,7 @@ function Head({ auth }) {
             <HeaderSearch />
             {auth ? (
               <UserMenu />
+              // <div>hfhf</div>
             ) : (
               <LinkWrapper>
                 <Link to='/sign-in'>Sign In</Link>

@@ -44,6 +44,7 @@ function CommentField({ user: { name, label }, photoId, commentsUpdate }) {
     photosApi.addPhotoComment(photoId, state).then(({ data, status }) => {
       if (status === 200) {
         commentsUpdate();
+        setState(state => ({ ...state, text: '' }));
       }
     });
   };
