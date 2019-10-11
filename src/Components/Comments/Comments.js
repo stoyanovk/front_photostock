@@ -55,7 +55,6 @@ function Comments({ photoId, auth }) {
             Оставлять комментарии могут только авторизированные пользователи
           </span>
         )}
-
         <List>
           {comments.map(({ text, _id, user: { label, name } }) => {
             return (

@@ -45,6 +45,11 @@ function UserMenu({ logout, user, history }) {
         <Link to='/photo/add'>
           <MenuItem onClick={handleClose}>Add Photo</MenuItem>
         </Link>
+        {user.isAdmin ? (
+          <Link to='/admin-page'>
+            <MenuItem onClick={handleClose}>admin-page</MenuItem>
+          </Link>
+        ) : null}
         <MenuItem onClick={handleLogout}>Log out</MenuItem>
       </StyledMenu>
     </div>

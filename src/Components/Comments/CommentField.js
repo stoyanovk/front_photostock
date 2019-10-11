@@ -38,16 +38,22 @@ function CommentField({ user: { name, label }, photoId, commentsUpdate }) {
   const handleChange = ({ target: { value } }) => {
     setState(state => ({ ...state, text: value }));
   };
+
+  const addComment = async () => {
+    const apiCall = await photosApi.addPhotoComment(photoId, state);
+    const { data, status } = await apiCall;
+
+    if (status === 200) {
+      commentsUpdate();
+      setState(state => ({ ...state, text: "" }));
+    }
+  };
+
   const handlesubmit = e => {
     e.preventDefault();
-
-    photosApi.addPhotoComment(photoId, state).then(({ data, status }) => {
-      if (status === 200) {
-        commentsUpdate();
-        setState(state => ({ ...state, text: '' }));
-      }
-    });
+    addComment();
   };
+
   return (
     <form onSubmit={handlesubmit}>
       <ListItem alignItems='center'>

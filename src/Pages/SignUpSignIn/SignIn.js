@@ -42,19 +42,24 @@ function SignIn(props) {
       return;
     }
     setErrorMessage("");
-
-    authApi.signIn(state).then(({ data: { data, status, message } }) => {
-      if (status === 'success') {
-        const { token, user: { _id } } = data;
-        window.localStorage.setItem("token", token);
-        logIn(data);
-        history.push(`/user/${_id}`);
-      }
-      else {
+    authApi
+      .signIn(state)
+      .then(({ data: { data, status, message } }) => {
+        if (status === "success") {
+          const {
+            token,
+            user: { _id }
+          } = data;
+          window.localStorage.setItem("token", token);
+          logIn(data);
+          console.log(message, data, status);
+          history.push(`/user/${_id}`);
+        }
+      })
+      .catch(({ response: { data: { data: { message } } } }) => {
         setErrorMessage(message);
-      }
-      
-    });
+        // console.log(message);
+      });
   };
 
   return (
