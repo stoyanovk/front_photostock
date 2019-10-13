@@ -20,9 +20,7 @@ function CategoryList({ categories }) {
   const handleChangeFile = file => {
     setData(prevdata => ({ ...prevdata, label: file }));
   };
-  // const updateCategories = item => {
-  //   return setCategoriesArr(prevState => ({ ...prevState, item }));
-  // };
+  
   const handleClick = () => {
     const formdata = new FormData();
     formdata.append("name", data.name);
@@ -40,7 +38,7 @@ function CategoryList({ categories }) {
       <Grid item xs={12} sm={6}>
         <ItemList>
           {categoriesArr
-            ? categories.map(({ _id, name }) => {
+            ? categoriesArr.map(({ _id, name }) => {
                 return <ListItem key={_id}>{name}</ListItem>;
               })
             : null}
