@@ -7,7 +7,7 @@ export default function Home() {
     return (
         <PageWrapper>
             <Container maxWidth='lg'>
-                <Tabs></Tabs>
+                <Tabs/>
             </Container>
         </PageWrapper>
     );

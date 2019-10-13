@@ -8,11 +8,10 @@ import Select from "@material-ui/core/Select";
 import Button from "@material-ui/core/Button";
 import { photosApi } from "../../Api";
 import { withRouter } from "react-router-dom";
+import ImgLabel from "../../Components/Common/ImgLabel";
 import {
   StyledTextField,
   StyledSelect,
-  StyledLabel,
-  StyledImg,
   ErrMessage,
   GridContentWrap
 } from "./style";
@@ -27,7 +26,7 @@ const initState = {
 };
 function AddPhoto({ categories, history }) {
   const [state, setState] = useState(initState);
-  const [fileUrl, setFileUrl] = useState("");
+  
   const [err, setErr] = useState("");
   const { title, description, alt, category, image } = state;
   const handleChange = ({ target: { name, value } }) => {
@@ -36,9 +35,7 @@ function AddPhoto({ categories, history }) {
       [name]: value
     }));
   };
-  const handleChangeFile = ({ target }) => {
-    const file = target.files[0];
-    setFileUrl(URL.createObjectURL(file));
+  const handleChangeFile = (file) => {
     return setState(state => ({
       ...state,
       image: file
@@ -75,10 +72,7 @@ function AddPhoto({ categories, history }) {
           <Grid container style={{ padding: 100 }}>
             <Grid item xs={12} md={6}>
               <GridContentWrap>
-                <StyledLabel>
-                  <input onChange={handleChangeFile} name='' type='file' />
-                </StyledLabel>
-                {fileUrl ? <StyledImg src={fileUrl} alt='label' /> : null}
+                <ImgLabel handleChangeFile={handleChangeFile} />
               </GridContentWrap>
             </Grid>
             <Grid item xs={12} md={6}>
