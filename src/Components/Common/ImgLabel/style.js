@@ -10,6 +10,10 @@ const StyledLabel = styled.label`
   height: 50px;
   display: block;
   outline: none;
+  input {
+    width: 0;
+    height: 0;
+  }
   &:before {
     content: "click there, for add image";
     position: absolute;
@@ -26,7 +30,4 @@ const StyledLabel = styled.label`
   }
 `;
 
-export {
-    StyledLabel,
-    StyledImg
-};
+export { StyledLabel, StyledImg };

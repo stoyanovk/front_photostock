@@ -58,7 +58,6 @@ function SignIn(props) {
       })
       .catch(({ response: { data: { data: { message } } } }) => {
         setErrorMessage(message);
-        // console.log(message);
       });
   };
 
