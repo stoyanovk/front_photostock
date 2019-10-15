@@ -44,10 +44,12 @@ const useStyles = makeStyles(theme => ({
     marginTop: theme.spacing(3)
   },
   submit: {
-    margin: theme.spacing(4, 0, 3),
+    margin: '30px auto',
     backgroundColor: "#fff",
     color: "#2d2d2d",
-    borderRadius: 12
+    borderRadius: 12,
+    maxWidth: 200,
+    display:'block'
   },
   controlLabel: {
     color: "#fff"

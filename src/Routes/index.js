@@ -1,14 +1,15 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
-import Home from "../Pages/Home";
-import Category from "../Pages/Category";
-import PhotoPage from "../Pages/PhotoPage";
-import User from "../Pages/User";
-import AddPhoto from "../Pages/AddPhoto";
 import { SignUp, SignIn } from "../Pages/SignUpSignIn";
-import AdminPage from "../Pages/AdminPage";
 import { connect } from "react-redux";
-// import ProvatRoute from "./PrivatRoute";
+import Home from "../Pages/Home";
+import Spinner from "../Components/Common/Spinner";
+const Category = lazy(() => import("../Pages/Category"));
+const PhotoPage = lazy(() => import("../Pages/PhotoPage"));
+const User = lazy(() => import("../Pages/User"));
+const AddPhoto = lazy(() => import("../Pages/AddPhoto"));
+const AdminPage = lazy(() => import("../Pages/AdminPage"));
+
 const Routes = ({ auth, user }) => {
   return (
     <Switch>
@@ -16,19 +17,31 @@ const Routes = ({ auth, user }) => {
       <Route
         path='/user/:id'
         // render={() => (auth ? <User user={user} /> : <Redirect to='/' />)}
-        render={() => <User user={user} />}
+        render={() => (
+          <Suspense fallback={<Spinner />}>
+            <User user={user} />
+          </Suspense>
+        )}
       />
 
       <Route
         exact
         path='/photo/add'
         // render={() => (auth ? <AddPhoto user={user} /> : <Redirect to='/' />)}
-        render={() => <AddPhoto user={user} /> }
+        render={() => (
+          <Suspense fallback={<Spinner />}>
+            <AddPhoto user={user} />
+          </Suspense>
+        )}
       />
       <Route
         path='/admin-page'
         // render={() => (auth ? <AddPhoto user={user} /> : <Redirect to='/' />)}
-        render={() => <AdminPage user={user} />}
+        render={() => (
+          <Suspense fallback={<Spinner />}>
+            <AdminPage user={user} />
+          </Suspense>
+        )}
       />
       <Route
         exact
@@ -37,7 +50,11 @@ const Routes = ({ auth, user }) => {
           match: {
             params: { id }
           }
-        }) => <PhotoPage id={id} />}
+        }) => (
+          <Suspense fallback={<Spinner />}>
+            <PhotoPage id={id} />
+          </Suspense>
+        )}
       />
       <Route
         exact
@@ -47,7 +64,11 @@ const Routes = ({ auth, user }) => {
             params: { id }
           }
         }) => {
-          return <Category id={id} />;
+          return (
+            <Suspense fallback={<Spinner />}>
+              <Category id={id} />
+            </Suspense>
+          );
         }}
       />
       <Route

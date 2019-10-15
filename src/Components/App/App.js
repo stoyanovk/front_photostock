@@ -11,7 +11,7 @@ const MyContext = createContext();
 const App = ({ $getCategories, onLoadLogin }) => {
   const token = localStorage.getItem("token");
 
-  token && onLoadLogin();
+  token && onLoadLogin().then((res)=>console.log(res));
   $getCategories();
 
   return (

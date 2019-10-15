@@ -12,11 +12,12 @@ import { useStyles, StyledTextField, ErrMessage } from "./style";
 import { isEmail, isEmpty } from "validator";
 import { withRouter } from "react-router-dom";
 import { authApi } from "../../Api";
-
+import ImgLabel from "../../Components/Common/ImgLabel";
 const initialState = {
   name: "",
   email: "",
-  password: ""
+  password: "",
+  label: ""
 };
 
 function SignUp({ history }) {
@@ -26,7 +27,7 @@ function SignUp({ history }) {
 
   const handleSubmit = e => {
     e.preventDefault();
-    const { name, email, password } = state;
+    const { name, email, password, label } = state;
     if (isEmpty(name)) {
       setErrorMessage("empty name field");
       return;
@@ -40,21 +41,31 @@ function SignUp({ history }) {
       console.log(isEmail(email));
       setErrorMessage("is not valid email");
       return;
+    } else if (label === '') {
+      setErrorMessage("is empty label field");
+      return;
     }
     setErrorMessage("");
-    const stringState = JSON.stringify(state);
+    const formData = new FormData();
+    formData.append('name',name)
+    formData.append('email', email)
+    formData.append('password', password)
+    formData.append('label', label)
+    // const stringState = JSON.stringify(state);
     authApi
-      .signUp(stringState, { "Content-type": "application/json" })
+      .signUp(formData)
       .then(res => history.push("/sign-in"));
   };
 
   const handleChange = ({ target: { name, value } }) => {
     setState(prevState => ({ ...prevState, [name]: value }));
   };
-
+  const handleChangeFile = file => {
+    setState(prevdata => ({ ...prevdata, label: file }));
+  };
   return (
     <PageWrapper>
-      <Container component='main' maxWidth='xs'>
+      <Container component='main' maxWidth='md'>
         <CssBaseline />
         <div className={classes.paper}>
           <Avatar className={classes.avatar}>
@@ -65,47 +76,51 @@ function SignUp({ history }) {
           </Typography>
           <form className={classes.form} noValidate onSubmit={handleSubmit}>
             <Grid container spacing={2}>
-              <Grid item xs={12}>
-                <StyledTextField
-                  onChange={handleChange}
-                  value={state.name}
-                  autoComplete='Name'
-                  name='name'
-                  variant='standard'
-                  required={true}
-                  fullWidth
-                  id='firstName'
-                  label='Name'
-                  autoFocus
-                />
+              <Grid item xs={12} sm={6}>
+                <Grid item xs={12}>
+                  <StyledTextField
+                    onChange={handleChange}
+                    value={state.name}
+                    autoComplete='Name'
+                    name='name'
+                    variant='standard'
+                    required={true}
+                    fullWidth
+                    id='firstName'
+                    label='Name'
+                    autoFocus
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <StyledTextField
+                    onChange={handleChange}
+                    value={state.email}
+                    variant='standard'
+                    required={true}
+                    fullWidth
+                    id='email'
+                    label='Email Address'
+                    name='email'
+                    autoComplete='off'
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <StyledTextField
+                    onChange={handleChange}
+                    value={state.password}
+                    variant='standard'
+                    required={true}
+                    fullWidth
+                    name='password'
+                    label='Password'
+                    type='password'
+                    id='password'
+                    autoComplete='off'
+                  />
+                </Grid>
               </Grid>
-
-              <Grid item xs={12}>
-                <StyledTextField
-                  onChange={handleChange}
-                  value={state.email}
-                  variant='standard'
-                  required={true}
-                  fullWidth
-                  id='email'
-                  label='Email Address'
-                  name='email'
-                  autoComplete='off'
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <StyledTextField
-                  onChange={handleChange}
-                  value={state.password}
-                  variant='standard'
-                  required={true}
-                  fullWidth
-                  name='password'
-                  label='Password'
-                  type='password'
-                  id='password'
-                  autoComplete='off'
-                />
+              <Grid item xs={12} sm={6}>
+                <ImgLabel handleChangeFile={handleChangeFile} label={state.label} />
               </Grid>
             </Grid>
             <Button

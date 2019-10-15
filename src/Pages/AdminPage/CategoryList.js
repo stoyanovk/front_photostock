@@ -50,11 +50,7 @@ function CategoryList({ categories }) {
           margin='normal'
           name='name'
           value={data.name}
-          onChange={useCallback(
-            ({ target: { value, name } }) =>
-              setData({ ...data, [name]: value }),
-            []
-          )}
+          onChange={handleChange}
         />
         <div>
           <Button variant='contained' onClick={handleClick}>
