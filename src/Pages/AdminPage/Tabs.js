@@ -1,4 +1,4 @@
-import React, { lazy, useState, Suspense} from "react";
+import React, { lazy, useState, Suspense } from "react";
 import { useStyles } from "./style";
 import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
@@ -6,9 +6,8 @@ import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import CategoryList from "./CategoryList";
-import Spinner from '../../Components/Common/Spinner'
-import Grid from '@material-ui/core/Grid';
-const UserList = lazy(() => import('./UserList'));
+import Spinner from "../../Components/Common/Spinner";
+import UserList from "./UserList";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -48,16 +47,16 @@ export default function SimpleTabs() {
           value={value}
           onChange={handleChange}
           aria-label='simple tabs example'>
-          <Tab label='Item One' {...a11yProps(0)} />
-          <Tab label='Item Two' {...a11yProps(1)} />
+          <Tab label='Список категорий' {...a11yProps(0)} />
+          <Tab label='Списка юзеров' {...a11yProps(1)} />
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
         <CategoryList />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <Suspense fallback={<Spinner/>}>
-          <UserList/>
+        <Suspense fallback={<Spinner />}>
+          <UserList />
         </Suspense>
       </TabPanel>
     </div>

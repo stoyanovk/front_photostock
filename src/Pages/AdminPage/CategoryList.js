@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import ItemList from "../../Components/Common/ItemsList";
 import { connect } from "react-redux";
 import ListItem from "@material-ui/core/ListItem";
@@ -20,19 +20,21 @@ function CategoryList({ categories }) {
   const handleChangeFile = file => {
     setData(prevdata => ({ ...prevdata, label: file }));
   };
-  
+
   const handleClick = () => {
     const formdata = new FormData();
     formdata.append("name", data.name);
     formdata.append("label", data.label);
     categoriesApi.addNewCategory(formdata).then(({ data: { data } }) => {
       setCategoriesArr([...categoriesArr, data]);
-      setData(initialData)
+      setData(initialData);
     });
   };
-  const handlechange = ({ target: { value, name } }) => {
-    setData(prevdata => ({ ...prevdata, [name]: value }));
+  const handleChange = ({ target: { value, name } }) => {
+    setData({ ...data, [name]: value });
   };
+
+  console.log("render");
   return (
     <Grid container>
       <Grid item xs={12} sm={6}>
@@ -48,7 +50,11 @@ function CategoryList({ categories }) {
           margin='normal'
           name='name'
           value={data.name}
-          onChange={handlechange}
+          onChange={useCallback(
+            ({ target: { value, name } }) =>
+              setData({ ...data, [name]: value }),
+            []
+          )}
         />
         <div>
           <Button variant='contained' onClick={handleClick}>
@@ -60,7 +66,7 @@ function CategoryList({ categories }) {
         </div>
       </Grid>
       <Grid item xs={12} sm={3}>
-        <ImgLabel handleChangeFile={handleChangeFile} />
+        <ImgLabel handleChangeFile={handleChangeFile} label={data.label} />
       </Grid>
     </Grid>
   );

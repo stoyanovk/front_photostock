@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { StyledLabel, StyledImg } from "./style";
-export default function ImgLabel({ handleChangeFile }) {
+export default function ImgLabel({ handleChangeFile, label }) {
   const [fileUrl, setFileUrl] = useState("");
   const setImg = ({ target }) => {
     const file = target.files[0];
@@ -12,7 +12,10 @@ export default function ImgLabel({ handleChangeFile }) {
       setFileUrl("");
     }
   };
-
+  useEffect(() => {
+    label === "" && setFileUrl("");
+  },[label])
+  
   return (
     <>
       <StyledLabel>
