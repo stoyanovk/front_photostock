@@ -7,11 +7,19 @@ const onLoadLogin = () => async dispatch => {
   } = await authApi.onLoadLogin();
 
   const token = localStorage.getItem("token");
-  return dispatch({
-    type: "ON_LOAD_LOGIN",
-    payload: user,
-    token
-  });
+  if (user !== null || undefined) {
+    return dispatch({
+      type: "ON_LOAD_LOGIN",
+      payload: user,
+      token
+    });
+  } else {
+    return dispatch({
+      type: "ON_LOAD_LOGIN",
+      payload: {},
+      token: ""
+    });
+  }
 };
 const login = ({ token, user }) => {
   return {

@@ -5,16 +5,15 @@ import { photosApi } from "../../Api";
 import SliderItem from "./SliderItem";
 import { withRouter } from "react-router-dom";
 import { redirectTo } from "../../utils";
+
 function MostPopularImagesSection({ history }) {
   const [popularImages, setPopularImage] = useState([]);
-  let isMounted = false;
 
   useEffect(() => {
-    isMounted = true;
-    isMounted &&
-      photosApi.getPhotos().then(({ data: { data } }) => {
-        setPopularImage(data);
-      });
+    let isMounted = true;
+    photosApi.getPhotos().then(({ data: { data } }) => {
+      isMounted && setPopularImage(data);
+    });
     return () => (isMounted = false);
   }, []);
 
