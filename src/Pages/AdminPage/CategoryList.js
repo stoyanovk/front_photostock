@@ -22,9 +22,10 @@ function CategoryList({ categories }) {
   };
 
   const handleClick = () => {
+    const [name, label] = data;
     const formdata = new FormData();
-    formdata.append("name", data.name);
-    formdata.append("label", data.label);
+    formdata.append("name", name);
+    formdata.append("label", label);
     categoriesApi.addNewCategory(formdata).then(({ data: { data } }) => {
       setCategoriesArr([...categoriesArr, data]);
       setData(initialData);

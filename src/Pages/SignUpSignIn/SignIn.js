@@ -31,17 +31,17 @@ function SignIn(props) {
   const handleSubmit = e => {
     e.preventDefault();
     const { email, password } = state;
-    if (isEmpty(email)) {
-      setErrorMessage("empty email field");
-      return;
-    } else if (isEmpty(password)) {
-      setErrorMessage("is empty password field");
-      return;
-    } else if (!isEmail(email)) {
-      setErrorMessage("is not valid email");
-      return;
-    }
-    setErrorMessage("");
+    // if (isEmpty(email)) {
+    //   setErrorMessage("empty email field");
+    //   return;
+    // } else if (isEmpty(password)) {
+    //   setErrorMessage("is empty password field");
+    //   return;
+    // } else if (!isEmail(email)) {
+    //   setErrorMessage("is not valid email");
+    //   return;
+    // }
+    // setErrorMessage("");
     authApi
       .signIn(state)
       .then(({ data: { data, status, message } }) => {
@@ -82,7 +82,6 @@ function SignIn(props) {
                 id='email'
                 label='Email Address'
                 name='email'
-                autoComplete='off'
               />
             </Grid>
             <Grid item xs={12}>
@@ -96,7 +95,6 @@ function SignIn(props) {
                 label='Password'
                 type='password'
                 id='password'
-                autoComplete='off'
               />
             </Grid>
             <Button
