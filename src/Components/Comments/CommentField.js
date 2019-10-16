@@ -41,10 +41,14 @@ function CommentField({ user: { name, label }, photoId, commentsUpdate }) {
 
   const addComment = async () => {
     const apiCall = await photosApi.addPhotoComment(photoId, state);
-    const { data, status } = await apiCall;
-
+    const {
+      data: {
+        data: { comment }
+      },
+      status
+    } = await apiCall;
     if (status === 200) {
-      commentsUpdate();
+      commentsUpdate(comment)
       setState(state => ({ ...state, text: "" }));
     }
   };

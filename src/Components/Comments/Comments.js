@@ -2,17 +2,21 @@ import React, { useEffect, useState } from "react";
 import Comment from "./Comment";
 import { makeStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
-import { photosApi } from "../../Api";
 import Typography from "@material-ui/core/Typography";
 import { SectionWrapper } from "./style";
 import CommentField from "./CommentField";
-import { connect } from "react-redux";
+
 const useStyles = makeStyles(theme => ({
   root: {
     width: "100%",
     maxWidth: 720,
     margin: "0 auto",
-    backgroundColor: "rgba(255,255,255,0.05)"
+    backgroundColor: "rgba(255,255,255,0.05)",
+  },
+  rootRevers: {
+    
+    display: "flex",
+    flexDirection: "column-reverse"
   },
   inline: {
     display: "inline"
@@ -25,29 +29,15 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function Comments({ photoId, auth }) {
+function Comments({ photoId, auth, comments, commentsUpdate }) {
   const classes = useStyles();
-  const [comments, setComments] = useState([]);
-  useEffect(() => {
-    photoId &&
-      photosApi
-        .getPhotoComments(photoId)
-        .then(({ data: { data: { comments } } }) => setComments(comments));
-  }, [photoId]);
-
-  const commentsUpdate = () => {
-    photosApi
-      .getPhotoComments(photoId)
-      .then(({ data: { data: { comments } } }) => setComments(comments));
-  };
-  console.log(auth);
   return (
     <SectionWrapper>
       <Typography className={classes.title} component='h2'>
         Comments
       </Typography>
 
-      <div className={classes.root}>
+      <div className={classes.rootRevers}>
         {auth ? (
           <CommentField photoId={photoId} commentsUpdate={commentsUpdate} />
         ) : (
@@ -67,5 +57,4 @@ function Comments({ photoId, auth }) {
   );
 }
 
-const mapStateToProps = ({ userReducer: { auth } }) => ({ auth });
-export default connect(mapStateToProps)(Comments);
+export default Comments;

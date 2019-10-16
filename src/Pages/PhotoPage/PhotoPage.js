@@ -7,9 +7,10 @@ import PhotoPageSlider from "./PhotoPageSlider";
 import { photosApi } from "../../Api";
 import PropTypes from "prop-types";
 import PhotoDescription from "./PhotoDescription";
-import Comments from '../../Components/Comments'
+import PhotoComments from './PhotoComments'
+
 function PhotoPage({ id }) {
-  // const [imagesArr, setImagesArr] = useState([]);
+ 
   const [stateImage, setImage] = useState({});
 
   let isMount = false;
@@ -40,7 +41,7 @@ function PhotoPage({ id }) {
             <PhotoDescription image={stateImage} />
           </Grid>
           <Grid item xs={12}>
-            <Comments photoId={stateImage._id}/>
+            <PhotoComments photoId={stateImage._id} />
           </Grid>
         </Grid>
       </Container>
