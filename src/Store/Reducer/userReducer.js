@@ -1,29 +1,40 @@
 const initialState = {
   auth: false,
   token: "",
-  user:{}
+  user: {},
+  loaded: false
 };
 
 function userReducer(state = initialState, action) {
   switch (action.type) {
     case "ON_LOAD_LOGIN":
+
       return {
-        token: action.payload,
-        auth: true,
-        user: action.payload,
+        ...state,
+        token: action.token,
+        auth: action.auth,
+        user: action.user,
+        
       };
     case "LOGIN":
       return {
+        ...state,
         token: action.token,
         auth: true,
-        user: action.user
+        user: action.user,
       };
     case "LOGOUT":
-      console.log('LOGOUT')
+
       return {
+        ...state,
         token: "",
         auth: false,
-        user:{},
+        user: {},
+      };
+    case "LOADED":
+      return {
+        ...state,
+        loaded: true,
       };
     default:
       return state;

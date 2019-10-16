@@ -1,8 +1,8 @@
 import React from "react";
 import PageWrapper from "../../Components/PageWrapper";
+import Container from "@material-ui/core/Container";
 import FirstSection from "./FirstSection";
 import MostPopularImagesSection from "./MostPopularImagesSection";
-import Container from "@material-ui/core/Container";
 import CategorySection from "./CategorySection";
 
 export default function Home() {

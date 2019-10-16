@@ -7,17 +7,21 @@ const onLoadLogin = () => async dispatch => {
   } = await authApi.onLoadLogin();
 
   const token = localStorage.getItem("token");
+
   if (user !== null || undefined) {
+    
     return dispatch({
       type: "ON_LOAD_LOGIN",
-      payload: user,
-      token
+      user: user,
+      token,
+      auth: true
     });
   } else {
     return dispatch({
       type: "ON_LOAD_LOGIN",
-      payload: {},
-      token: ""
+      user: {},
+      token: "",
+      auth: false
     });
   }
 };
@@ -34,4 +38,10 @@ const logout = () => {
     type: "LOGOUT"
   };
 };
-export { login, logout, onLoadLogin };
+const loading = () => dispatch => {
+
+  return dispatch({
+    type: "LOADED"
+  });
+};
+export { login, logout, onLoadLogin, loading };

@@ -9,7 +9,7 @@ const PhotoPage = lazy(() => import("../Pages/PhotoPage"));
 const User = lazy(() => import("../Pages/User"));
 const AddPhoto = lazy(() => import("../Pages/AddPhoto"));
 const AdminPage = lazy(() => import("../Pages/AdminPage"));
-
+const ChatPage = lazy(() => import("../Pages/ChatPage"));
 const Routes = ({ auth, user }) => {
   return (
     <Switch>
@@ -78,6 +78,14 @@ const Routes = ({ auth, user }) => {
       <Route
         path='/sign-in'
         component={() => (!auth ? <SignIn /> : <Redirect to='/' />)}
+      />
+      <Route
+        path='/chat-page'
+        render={() => (
+          <Suspense fallback={<Spinner />}>
+            <ChatPage/>
+          </Suspense>
+        )}
       />
       <Redirect to='/' />
     </Switch>

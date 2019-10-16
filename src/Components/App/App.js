@@ -1,17 +1,25 @@
-import React, { createContext } from "react";
+import React, { createContext, useState } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import { connect } from "react-redux";
 import Routes from "../../Routes";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import GlobalStyle from "../GlobalStyle";
-import { $getCategories, onLoadLogin } from "../../Store/Actions";
+import { $getCategories, onLoadLogin,loading } from "../../Store/Actions";
 import { tags } from "../../Api/dataTest";
+
 const MyContext = createContext();
 
-const App = ({ $getCategories, onLoadLogin }) => {
-  const token = localStorage.getItem("token");
+const App = ({ $getCategories, onLoadLogin, loading}) => {
 
-  token && onLoadLogin().then((res)=>console.log(res));
+  const token = localStorage.getItem("token");
+  // token && onLoadLogin();
+  if (token) {
+    onLoadLogin().then(() => loading())
+  }
+  else {
+
+    loading()
+  }
   $getCategories();
 
   return (
@@ -29,7 +37,8 @@ const App = ({ $getCategories, onLoadLogin }) => {
 
 const mapDispatchToProps = {
   $getCategories,
-  onLoadLogin
+  onLoadLogin,
+  loading,
 };
 
 export { MyContext };

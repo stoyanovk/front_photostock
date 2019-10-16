@@ -4,12 +4,13 @@ import Toolbar from "@material-ui/core/Toolbar";
 import img from "../../assets/img/photo-camera.svg";
 import MenuDropList from "./MenuDropList";
 import HeaderSearch from "../Common/HeaderSearch";
-import { useStyles, LinkWrapper} from "./style";
+import { useStyles, LinkWrapper } from "./style";
 import { Link } from "react-router-dom";
 import UserMenu from "./UserMenu";
 import { connect } from "react-redux";
-
-function Head({ auth }) {
+import Spinner from "../../Components/Common/Spinner";
+function Head({ auth, loaded }) {
+  console.log(loaded);
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const mouseEnter = () => () => {
@@ -37,24 +38,28 @@ function Head({ auth }) {
               <MenuDropList open={open} />
             </div>
           </div>
-          
-            <HeaderSearch />
-            {auth ? (
+
+          <HeaderSearch />
+          {loaded ? (
+            auth ? (
               <UserMenu />
-              // <div>hfhf</div>
             ) : (
               <LinkWrapper>
                 <Link to='/sign-in'>Sign In</Link>
                 <Link to='/sign-up'>Sign Up</Link>
               </LinkWrapper>
-            )}
-
+            )
+          ) : (
+            <Spinner />
+          )}
         </Toolbar>
       </AppBar>
     </div>
   );
 }
-const mapStateToProps = ({ userReducer: { auth } }) => ({ auth });
+const mapStateToProps = ({ userReducer: { auth, loaded } }) => ({
+  auth,
+  loaded
+});
 
 export default connect(mapStateToProps)(Head);
-
