@@ -11,6 +11,9 @@ import Fab from "@material-ui/core/Fab";
 import Icon from "@material-ui/core/Icon";
 import { photosApi } from "../../Api";
 
+import openSocket from "socket.io-client";
+const socket = openSocket("http://10.0.1.179:3000/");
+
 const useStyles = makeStyles(theme => ({
   textArea: {
     width: "100%"
@@ -48,16 +51,23 @@ function CommentField({ user: { name, label }, photoId, commentsUpdate }) {
       status
     } = await apiCall;
     if (status === 200) {
-      commentsUpdate(comment)
+      commentsUpdate(comment);
       setState(state => ({ ...state, text: "" }));
     }
   };
 
-  const handlesubmit = e => {
-    e.preventDefault();
-    addComment();
+  const addMessage = () => {
+    socket.emit("someEvent", state.text);
   };
 
+  const handlesubmit = e => {
+    e.preventDefault();
+    // addComment();
+    addMessage();
+  };
+  socket.on("responseSS", data => {
+    console.log(data);
+  });
   return (
     <form onSubmit={handlesubmit}>
       <ListItem alignItems='center'>

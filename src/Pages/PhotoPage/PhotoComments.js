@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Comments from "../../Components/Comments";
-import { connect } from "react-redux";
 import { photosApi } from "../../Api";
-function PhotoComments({ photoId, auth }) {
+function PhotoComments({ photoId }) {
   const [comments, setComments] = useState([]);
   useEffect(() => {
     photoId &&
@@ -18,10 +17,9 @@ function PhotoComments({ photoId, auth }) {
     <Comments
       photoId={photoId}
       comments={comments}
-      auth={auth}
       commentsUpdate={commentsUpdate}
     />
   );
 }
-const mapStateToProps = ({ userReducer: { auth } }) => ({ auth });
-export default connect(mapStateToProps)(PhotoComments);
+
+export default PhotoComments;

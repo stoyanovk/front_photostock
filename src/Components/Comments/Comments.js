@@ -5,16 +5,14 @@ import List from "@material-ui/core/List";
 import Typography from "@material-ui/core/Typography";
 import { SectionWrapper } from "./style";
 import CommentField from "./CommentField";
-
+import { connect } from "react-redux";
 const useStyles = makeStyles(theme => ({
   root: {
     width: "100%",
     maxWidth: 720,
-    margin: "0 auto",
-    backgroundColor: "rgba(255,255,255,0.05)",
+    margin: "0 auto"
   },
-  rootRevers: {
-    
+  chatRoot: {
     display: "flex",
     flexDirection: "column-reverse"
   },
@@ -37,7 +35,7 @@ function Comments({ photoId, auth, comments, commentsUpdate }) {
         Comments
       </Typography>
 
-      <div className={classes.rootRevers}>
+      <div className={classes.root}>
         {auth ? (
           <CommentField photoId={photoId} commentsUpdate={commentsUpdate} />
         ) : (
@@ -46,15 +44,22 @@ function Comments({ photoId, auth, comments, commentsUpdate }) {
           </span>
         )}
         <List>
-          {comments.map(({ text, _id, user: { label, name } }) => {
-            return (
-              <Comment key={_id} comment={text} imageUrl={label} name={name} />
-            );
-          })}
+          {comments
+            ? comments.map(({ text, _id, user: { label, name } }) => {
+                return (
+                  <Comment
+                    key={_id}
+                    comment={text}
+                    imageUrl={label}
+                    name={name}
+                  />
+                );
+              })
+            : null}
         </List>
       </div>
     </SectionWrapper>
   );
 }
-
-export default Comments;
+const mapStateToProps = ({ userReducer: { auth } }) => ({ auth });
+export default connect(mapStateToProps)(Comments);

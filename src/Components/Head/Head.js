@@ -5,7 +5,7 @@ import img from "../../assets/img/photo-camera.svg";
 import MenuDropList from "./MenuDropList";
 import HeaderSearch from "../Common/HeaderSearch";
 import { useStyles, LinkWrapper } from "./style";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import UserMenu from "./UserMenu";
 import { connect } from "react-redux";
 import Spinner from "../../Components/Common/Spinner";
@@ -28,6 +28,19 @@ function Head({ auth, loaded }) {
               <Link to='/'>
                 <img className={classes.logo} src={img} alt='logo' />
               </Link>
+            </div>
+            <div>
+              <NavLink
+                to='/chat-page'
+                activeStyle={{
+                  color: "#fff",
+                  fontSize: 14,
+                  textDecoration:'none'
+                }}>
+                <div className={classes.menuButton} body1='span'>
+                  CHAT
+                </div>
+              </NavLink>
             </div>
             <div
               className={classes.menuButton}

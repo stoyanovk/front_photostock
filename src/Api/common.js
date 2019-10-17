@@ -12,8 +12,8 @@ function getHeaders() {
 
 
 
-const HOST = "https://photostock-back.herokuapp.com/";
-// const HOST = "http://10.0.1.106:3000/";
+// const HOST = "https://photostock-back.herokuapp.com/";
+const HOST = "http://10.0.1.179:3000/";
 const apiCall = async ({ url, method, data }) => {
   const result = await axios({
     method,

@@ -1,13 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import PageWrapper from "../../Components/PageWrapper";
 import Container from "@material-ui/core/Container";
+import Comments from "../../Components/Comments";
 
-export default function ChatPage() {
+
+
+function ChatPage() {
+
+  
   return (
     <PageWrapper>
-        <Container maxWidth='xl'>
-              
+      <Container maxWidth='md'>
+        <Comments />
       </Container>
     </PageWrapper>
   );
 }
+
+export default ChatPage;
