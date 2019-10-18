@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import TextField from "@material-ui/core/TextField";
 import { connect } from "react-redux";
@@ -35,9 +35,16 @@ const useStyles = makeStyles(theme => ({
 const initialState = {
   text: ""
 };
-function CommentField({ user: { name, label }, photoId, commentsUpdate }) {
+function CommentField({ user: { name, label, _id }, photoId, commentsUpdate }) {
   const classes = useStyles();
   const [state, setState] = React.useState(initialState);
+
+  useEffect(() => {
+    socket.on("chatCreated", data => {
+      console.log(data);
+    });
+    socket.emit("createChat", { user_id: _id, name: 112 });
+  }, []);
   const handleChange = ({ target: { value } }) => {
     setState(state => ({ ...state, text: value }));
   };
@@ -56,18 +63,14 @@ function CommentField({ user: { name, label }, photoId, commentsUpdate }) {
     }
   };
 
-  const addMessage = () => {
-    socket.emit("someEvent", state.text);
-  };
+  const addMessage = () => {};
 
   const handlesubmit = e => {
     e.preventDefault();
     // addComment();
     addMessage();
   };
-  socket.on("responseSS", data => {
-    console.log(data);
-  });
+
   return (
     <form onSubmit={handlesubmit}>
       <ListItem alignItems='center'>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { SectionWrapper } from "./style";
 import { url } from "../../utils";
 import { Link } from "react-router-dom";
@@ -6,8 +6,8 @@ import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
 import GridListTileBar from "@material-ui/core/GridListTileBar";
 import { GridImg } from "./style";
-export default function CategoryGallery({ category: { images } }) {
-  console.log('render category gallery');
+function CategoryGallery({ category: { images } }) {
+  console.log("render category gallery");
   return images ? (
     <SectionWrapper>
       <GridList cellHeight={300} cols={3}>
@@ -31,4 +31,5 @@ export default function CategoryGallery({ category: { images } }) {
     <h2> Загрузка...</h2>
   );
 }
-
+export default memo(CategoryGallery);
+// const CategoryGallery = memo(function CategoryGallery(){})

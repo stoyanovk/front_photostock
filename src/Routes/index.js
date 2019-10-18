@@ -12,83 +12,62 @@ const AdminPage = lazy(() => import("../Pages/AdminPage"));
 const ChatPage = lazy(() => import("../Pages/ChatPage"));
 const Routes = ({ auth, user }) => {
   return (
-    <Switch>
-      <Route exact path='/' component={Home} />
-      <Route
-        path='/user/:id'
-        // render={() => (auth ? <User user={user} /> : <Redirect to='/' />)}
-        render={() => (
-          <Suspense fallback={<Spinner />}>
-            <User user={user} />
-          </Suspense>
-        )}
-      />
+    <Suspense fallback={<Spinner />}>
+      <Switch>
+        <Route exact path='/' component={Home} />
+        <Route
+          path='/user/:id'
+          // render={() => (auth ? <User user={user} /> : <Redirect to='/' />)}
+          render={() => <User user={user} />}
+        />
 
-      <Route
-        exact
-        path='/photo/add'
-        // render={() => (auth ? <AddPhoto user={user} /> : <Redirect to='/' />)}
-        render={() => (
-          <Suspense fallback={<Spinner />}>
-            <AddPhoto user={user} />
-          </Suspense>
-        )}
-      />
-      <Route
-        path='/admin-page'
-        // render={() => (auth ? <AddPhoto user={user} /> : <Redirect to='/' />)}
-        render={() => (
-          <Suspense fallback={<Spinner />}>
-            <AdminPage user={user} />
-          </Suspense>
-        )}
-      />
-      <Route
-        exact
-        path='/photo/:id'
-        render={({
-          match: {
-            params: { id }
-          }
-        }) => (
-          <Suspense fallback={<Spinner />}>
-            <PhotoPage id={id} />
-          </Suspense>
-        )}
-      />
-      <Route
-        exact
-        path='/category/:id'
-        render={({
-          match: {
-            params: { id }
-          }
-        }) => {
-          return (
+        <Route
+          exact
+          path='/photo/add'
+          // render={() => (auth ? <AddPhoto user={user} /> : <Redirect to='/' />)}
+          render={() => <AddPhoto user={user} />}
+        />
+        <Route
+          path='/admin-page'
+          // render={() => (auth ? <AddPhoto user={user} /> : <Redirect to='/' />)}
+          render={() => <AdminPage user={user} />}
+        />
+        <Route
+          exact
+          path='/photo/:id'
+          render={({
+            match: {
+              params: { id }
+            }
+          }) => (
             <Suspense fallback={<Spinner />}>
-              <Category id={id} />
+              <PhotoPage id={id} />
             </Suspense>
-          );
-        }}
-      />
-      <Route
-        path='/sign-up'
-        render={() => (!auth ? <SignUp /> : <Redirect to='/' />)}
-      />
-      <Route
-        path='/sign-in'
-        component={() => (!auth ? <SignIn /> : <Redirect to='/' />)}
-      />
-      <Route
-        path='/chat-page'
-        render={() => (
-          <Suspense fallback={<Spinner />}>
-            <ChatPage/>
-          </Suspense>
-        )}
-      />
-      <Redirect to='/' />
-    </Switch>
+          )}
+        />
+        <Route
+          exact
+          path='/category/:id'
+          render={({
+            match: {
+              params: { id }
+            }
+          }) => {
+            return <Category id={id} />;
+          }}
+        />
+        <Route
+          path='/sign-up'
+          render={() => (!auth ? <SignUp /> : <Redirect to='/' />)}
+        />
+        <Route
+          path='/sign-in'
+          component={() => (!auth ? <SignIn /> : <Redirect to='/' />)}
+        />
+        <Route path='/chat-page' render={() => <ChatPage />} />
+        <Redirect to='/' />
+      </Switch>
+    </Suspense>
   );
 };
 
