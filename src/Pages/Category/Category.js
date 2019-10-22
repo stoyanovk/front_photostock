@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import PageWrapper from "../../Components/PageWrapper";
 import Container from "@material-ui/core/Container";
-import { withConsumer } from "../../HOC";
 import CategoryTitleSection from "./CategoryTitleSection";
 import CategoryGallery from "./CategoryGallery";
 import { categoriesApi } from "../../Api";
@@ -14,7 +13,9 @@ const Category = ({ id }) => {
         setCategory(category);
       });
   }, [id]);
-
+  console.log(id)
+  console.log(category)
+  
   return (
     <PageWrapper>
       <Container maxWidth='xl'>
@@ -24,4 +25,4 @@ const Category = ({ id }) => {
     </PageWrapper>
   );
 };
-export default withConsumer(Category);
+export default Category;

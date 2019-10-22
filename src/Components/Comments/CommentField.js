@@ -40,10 +40,17 @@ function CommentField({ user: { name, label, _id }, photoId, commentsUpdate }) {
   const [state, setState] = React.useState(initialState);
 
   useEffect(() => {
-    socket.on("chatCreated", data => {
-      console.log(data);
+    socket.on("chatCreated", (data) => {
+      // alert(resultData[0].name + ' connected')
+      console.log(data)
     });
-    socket.emit("createChat", { user_id: _id, name: 112 });
+
+    socket.on('newUser', ({name}) => {
+      // console.log(data)
+      alert(name + ' connected to chat')
+    })
+    socket.emit("createChat", { user_id: _id, name: 112,});
+    console.log('render')
   }, []);
   const handleChange = ({ target: { value } }) => {
     setState(state => ({ ...state, text: value }));
@@ -63,14 +70,16 @@ function CommentField({ user: { name, label, _id }, photoId, commentsUpdate }) {
     }
   };
 
-  const addMessage = () => {};
+  const addMessage = (text) => {
+    socket.emit("createChat", { user_id: _id, name: 112,message:{user_id:_id,text} });
+  };
 
   const handlesubmit = e => {
     e.preventDefault();
     // addComment();
-    addMessage();
+    addMessage(state.text);
   };
-
+  console.log('rend')
   return (
     <form onSubmit={handlesubmit}>
       <ListItem alignItems='center'>

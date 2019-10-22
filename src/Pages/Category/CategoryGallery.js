@@ -7,7 +7,7 @@ import GridListTile from "@material-ui/core/GridListTile";
 import GridListTileBar from "@material-ui/core/GridListTileBar";
 import { GridImg } from "./style";
 function CategoryGallery({ category: { images } }) {
-  console.log("render category gallery");
+
   return images ? (
     <SectionWrapper>
       <GridList cellHeight={300} cols={3}>

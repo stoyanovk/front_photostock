@@ -10,7 +10,6 @@ import UserMenu from "./UserMenu";
 import { connect } from "react-redux";
 import Spinner from "../../Components/Common/Spinner";
 function Head({ auth, loaded }) {
-  console.log(loaded);
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const mouseEnter = () => () => {
