@@ -1,17 +1,14 @@
 import React, { useState } from "react";
 import PageWrapper from "../../Components/PageWrapper";
 import Container from "@material-ui/core/Container";
-import Comments from "../../Components/Comments";
-
-
+import CommentField from "../../Components/Comments/CommentField";
+import ItemList from '../../Components/Common/ItemsList'
 
 function ChatPage() {
-
-  
   return (
     <PageWrapper>
       <Container maxWidth='md'>
-        <Comments />
+        <CommentField type='chat' MessagesList={ItemList}/>
       </Container>
     </PageWrapper>
   );

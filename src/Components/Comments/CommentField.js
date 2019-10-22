@@ -5,12 +5,12 @@ import { connect } from "react-redux";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
+import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import { url } from "../../utils";
 import Fab from "@material-ui/core/Fab";
 import Icon from "@material-ui/core/Icon";
 import { photosApi } from "../../Api";
-
 import openSocket from "socket.io-client";
 const socket = openSocket("http://10.0.1.179:3000/");
 
@@ -30,28 +30,50 @@ const useStyles = makeStyles(theme => ({
   textItemList: {
     display: "flex",
     alignItems: "center"
+  },
+  typographyText: {
+    color: "#fff",
+    textAlign: "center"
   }
 }));
-const initialState = {
-  text: ""
+const socetEvent = (setState, user) => {
+  socket.on("chatCreated", ({ data: { resultChat: { messages } } }) => {
+    setState(prevState => ({ ...prevState, messages }));
+  });
+  socket.on("messageAdded", ({ data: { resultChat: { messages } } }) => {
+    setState(prevState => ({ ...prevState, messages, text: "" }));
+  });
+
+  socket.on("newUser", user => {
+    setState(prevState => ({
+      ...prevState,
+      userList: [...prevState.userList, user]
+    }));
+  });
+  socket.emit("createChat", { user_id: user._id, name: 112 });
 };
-function CommentField({ user: { name, label, _id }, photoId, commentsUpdate }) {
+
+const initialState = {
+  text: "",
+  newUser: "",
+  userList: [],
+  messages: []
+};
+function CommentField({
+  user: { name, label, _id },
+  photoId,
+  commentsUpdate,
+  type,
+  MessagesList
+}) {
   const classes = useStyles();
   const [state, setState] = React.useState(initialState);
 
   useEffect(() => {
-    socket.on("chatCreated", (data) => {
-      // alert(resultData[0].name + ' connected')
-      console.log(data)
-    });
+    const user = { name, label, _id };
+    type === "chat" && _id && socetEvent(setState, user);
+  }, [_id]);
 
-    socket.on('newUser', ({name}) => {
-      // console.log(data)
-      alert(name + ' connected to chat')
-    })
-    socket.emit("createChat", { user_id: _id, name: 112,});
-    console.log('render')
-  }, []);
   const handleChange = ({ target: { value } }) => {
     setState(state => ({ ...state, text: value }));
   };
@@ -70,49 +92,78 @@ function CommentField({ user: { name, label, _id }, photoId, commentsUpdate }) {
     }
   };
 
-  const addMessage = (text) => {
-    socket.emit("createChat", { user_id: _id, name: 112,message:{user_id:_id,text} });
+  const addMessage = text => {
+    socket.emit("addMessage", {
+      user_id: _id,
+      name: 112,
+      message: { user_id: _id, text }
+    });
   };
 
   const handlesubmit = e => {
     e.preventDefault();
-    // addComment();
-    addMessage(state.text);
+    type === "chat" ? addMessage(state.text) : addComment();
   };
-  console.log('rend')
+  console.log(state);
   return (
-    <form onSubmit={handlesubmit}>
-      <ListItem alignItems='center'>
-        <div>
-          <ListItemAvatar>
-            <Avatar alt={name} src={`${url}${label}`} />
-          </ListItemAvatar>
-          <span className={classes.white}>{name}</span>
-        </div>
-        <ListItemText>
-          <div className={classes.textItemList}>
-            <TextField
-              id='outlined-multiline-static'
-              label=''
-              multiline
-              rows='1'
-              value={state.text}
-              margin='normal'
-              variant='outlined'
-              className={classes.textArea}
-              onChange={handleChange}
+    <>
+      {MessagesList ? (
+        <MessagesList>
+          {state.messages.map(({ _id, text, user_id: { name, label } }) => {
+            return (
+              <ListItem key={_id}>
+                <ListItemAvatar>
+                  <Avatar alt={`${name}`} src={`${url}${label}`} />
+                </ListItemAvatar>
+                <ListItemText primary={`${text}`} />
+              </ListItem>
+            );
+          })}
+        </MessagesList>
+      ) : null}
+      <form onSubmit={handlesubmit}>
+        {state.userList.length > 0 &&
+          state.userList.map(user => (
+            <Typography
+              key={user._id}
+              className={classes.typographyText}
+              variant='h5'
+              component='h2'
+              children={`${user.name} connected to chat!`}
             />
-            <Fab
-              component='button'
-              type='submit'
-              variant='round'
-              className={classes.button}>
-              <Icon>send</Icon>
-            </Fab>
+          ))}
+        <ListItem alignItems='center'>
+          <div>
+            <ListItemAvatar>
+              <Avatar alt={name} src={`${url}${label}`} />
+            </ListItemAvatar>
+            <span className={classes.white}>{name}</span>
           </div>
-        </ListItemText>
-      </ListItem>
-    </form>
+          <ListItemText>
+            <div className={classes.textItemList}>
+              <TextField
+                id='outlined-multiline-static'
+                label=''
+                multiline
+                rows='1'
+                value={state.text}
+                margin='normal'
+                variant='outlined'
+                className={classes.textArea}
+                onChange={handleChange}
+              />
+              <Fab
+                component='button'
+                type='submit'
+                variant='round'
+                className={classes.button}>
+                <Icon>send</Icon>
+              </Fab>
+            </div>
+          </ListItemText>
+        </ListItem>
+      </form>
+    </>
   );
 }
 const mapStateToProps = ({ userReducer: { user } }) => ({ user });
